@@ -9,6 +9,12 @@ OBJ = $(addprefix obj/,$(FILES:.cpp=.o))
 
 LIBS = -lglfw -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl `pkg-config --libs glew` -lm #linkage
 
+UNAME = $(shell uname -s)
+ifneq (, $(findstring MINGW, $(UNAME)))
+	LIBS = -lglfw3 -lgdi32 -lglew32
+	NAME = humangl.exe
+endif
+
 CC = g++ --std=c++14 # 14 is fine for now, might need to upgrade ?
 
 all: $(NAME)
