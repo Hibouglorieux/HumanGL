@@ -20,10 +20,10 @@
 class Window {
 public:
 	static int init();
-	~Window(void);
+	//~Window(void);
+	static GLFWwindow* window;
 private:
 	static bool initialized;
-	static GLFWwindow* window;
 };
 
 #endif

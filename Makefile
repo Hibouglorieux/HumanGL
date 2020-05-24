@@ -3,6 +3,8 @@ NAME = humangl
 
 FILES = main.cpp \
 		Utilities.cpp \
+		Shader.cpp \
+		Cube.cpp \
 		Window.cpp
 
 OBJ = $(addprefix obj/,$(FILES:.cpp=.o))
@@ -11,7 +13,7 @@ LIBS = -lglfw -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread 
 
 UNAME = $(shell uname -s)
 ifneq (, $(findstring MINGW, $(UNAME)))
-	LIBS = -lglfw3 -lgdi32 -lglew32
+	LIBS = -lglfw3 -lgdi32 -lglew32 -lopengl32
 	NAME = humangl.exe
 endif
 
