@@ -18,16 +18,17 @@ ifneq (, $(findstring MINGW, $(UNAME)))
 	NAME = humangl.exe
 endif
 
-CC = g++ --std=c++14 # 14 is fine for now, might need to upgrade ?
+CXXFLAGS = -g -std=gnu++14 -Wall -Wextra
+CXXFLAGS += -Wno-deprecated-declarations # hide usleep deprecated warning
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $^ -o $@ $(LIBS)
+	$(CXX) $^ -o $@ $(LIBS)
 
 obj/%.o:src/%.cpp #includes/*.h #add rule here
 	@mkdir -p obj
-	$(CC) -g -Wall -Wextra -c $< -o $@ -Iincludes -Ilibft #added 'g' flag for debug
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -Iincludes -Ilibft
 
 clean :
 	rm -rf obj
