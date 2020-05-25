@@ -21,17 +21,18 @@ ifneq (, $(findstring MINGW, $(UNAME)))
 endif
 
 # 14 is fine for now, might need to upgrade ?
-CC = g++ --std=c++14
+# -g flag for debug
+CXXFLAGS = -g -std=gnu++14 -Wall -Wextra
+CXXFLAGS += -Wno-deprecated-declarations # hide usleep deprecated warning
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $^ -o $@ $(LIBS)
+	$(CXX) $^ -o $@ $(LIBS)
 
 obj/%.o:src/%.cpp #includes/*.h #add rule here
 	@mkdir -p obj
-#added 'g' flag for debug
-	$(CC) -g -Wall -Wextra -c $< -o $@ -Iincludes -Ilibft
+	$(CXX) $(CXXFLAGS) -c $< -o $@ -Iincludes -Ilibft
 
 clean :
 	rm -rf obj
