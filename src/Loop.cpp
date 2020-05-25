@@ -25,7 +25,7 @@ const double Loop::refreshingRate = 1.0 / 60.0;
 void Loop::loop()
 {
 	glfwSetTime(0);
-	while (!shouldStop)
+	while (!glfwWindowShouldClose(Window::getWindow()))
 	{
 		double currentTimer = glfwGetTime();
 		processInput();
@@ -46,10 +46,7 @@ void Loop::loop()
 
 void Loop::processInput()
 {
+	glfwPollEvents();
 	if (glfwGetKey(Window::getWindow(), GLFW_KEY_ESCAPE) == GLFW_PRESS)
-	{
-		std::cout << "pouet" << std::endl;
 		glfwSetWindowShouldClose(Window::getWindow(), true);
-		shouldStop = true;
-	}
 }
