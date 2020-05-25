@@ -26,3 +26,5 @@ tags
 obj
 humangl
 humangl.exe
+*.o
+humangl.fr.pdf

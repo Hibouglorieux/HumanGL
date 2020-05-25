@@ -5,6 +5,7 @@ FILES = main.cpp \
 		Utilities.cpp \
 		Shader.cpp \
 		Cube.cpp \
+		Loop.cpp \
 		Window.cpp
 
 OBJ = $(addprefix obj/,$(FILES:.cpp=.o))

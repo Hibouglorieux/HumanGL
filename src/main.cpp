@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 01:52:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/24 03:12:16 by nathan           ###   ########.fr       */
+/*   Updated: 2020/05/24 17:59:49 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 #include "Utilities.h"
 #include "Window.hpp"
 #include "Cube.hpp"
+#include "Loop.hpp"
+
 using namespace std;
 
 int		main( void )
 {
-    Window w;
-	if (!w.init())
+	if (!Window::init())
 		return (0);
 
 	if (glewInit() != GLEW_OK)
@@ -38,8 +39,7 @@ int		main( void )
     // draw
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     cube.draw(viewMat);
-    glfwSwapBuffers(w.window);
-    getchar();
+	Loop::loop();
 
 	return 1;
 }

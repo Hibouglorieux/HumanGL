@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 01:55:16 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/24 02:50:43 by nathan           ###   ########.fr       */
+/*   Updated: 2020/05/24 15:23:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,9 @@ int Window::init()
 	}
 	initialized = true;
 	return (1);
+}
+
+GLFWwindow*	Window::getWindow()
+{
+	return window;
 }
