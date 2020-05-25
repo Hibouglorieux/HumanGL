@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 01:52:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/24 17:59:49 by nathan           ###   ########.fr       */
+/*   Updated: 2020/05/25 12:16:39 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include "Window.hpp"
 #include "Cube.hpp"
 #include "Loop.hpp"
+#include "Matrix.hpp"
 
 using namespace std;
 

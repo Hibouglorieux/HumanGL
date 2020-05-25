@@ -6,11 +6,13 @@ FILES = main.cpp \
 		Shader.cpp \
 		Cube.cpp \
 		Loop.cpp \
+		Matrix.cpp \
 		Window.cpp
 
 OBJ = $(addprefix obj/,$(FILES:.cpp=.o))
 
-LIBS = -lglfw -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl `pkg-config --libs glew` -lm #linkage
+#linkage
+LIBS = -lglfw -lX11 -lXrandr -lXinerama -lXi -lXxf86vm -lXcursor -lGL -lpthread -ldl `pkg-config --libs glew` -lm
 
 UNAME = $(shell uname -s)
 ifneq (, $(findstring MINGW, $(UNAME)))
@@ -18,7 +20,8 @@ ifneq (, $(findstring MINGW, $(UNAME)))
 	NAME = humangl.exe
 endif
 
-CC = g++ --std=c++14 # 14 is fine for now, might need to upgrade ?
+# 14 is fine for now, might need to upgrade ?
+CC = g++ --std=c++14
 
 all: $(NAME)
 
@@ -27,7 +30,8 @@ $(NAME): $(OBJ)
 
 obj/%.o:src/%.cpp #includes/*.h #add rule here
 	@mkdir -p obj
-	$(CC) -g -Wall -Wextra -c $< -o $@ -Iincludes -Ilibft #added 'g' flag for debug
+#added 'g' flag for debug
+	$(CC) -g -Wall -Wextra -c $< -o $@ -Iincludes -Ilibft
 
 clean :
 	rm -rf obj

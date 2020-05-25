@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 02:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/24 02:56:34 by nathan           ###   ########.fr       */
+/*   Updated: 2020/05/25 11:59:08 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # define SCREEN_WIDTH 800
 # define SCREEN_HEIGHT 600
 
+void __M_Assert(const char* expr_str, bool expr, const char* file, int line, const char* msg);
+void M_Assert(bool expr, const char* msg);
 
 # ifndef NDEBUG
 #   define M_Assert(Expr, Msg) \
