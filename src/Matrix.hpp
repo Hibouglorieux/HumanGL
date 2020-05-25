@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/25 11:56:33 by nathan           ###   ########.fr       */
+/*   Updated: 2020/05/25 16:29:40 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,29 @@
 
 class Matrix {
 public:
-	Matrix(void);
-	Matrix(std::vector<std::vector<float>> dataParam);
-	~Matrix(void);
-	GLfloat* exportForGL();
-	Matrix operator*(const Matrix& rhs);
+	enum RotationDirection {
+		X,
+		Y,
+		Z
+	};
+	Matrix( void );// also is identity matrix
+	Matrix( std::vector<std::vector<float>> dataParam );
+	Matrix( const Matrix& copy );
+
+	static Matrix createProjMatrix( float fov, float aspect, float near, float far );// takes fov as degree
+	static Matrix createTranslationMatrix( float x, float y, float z );
+	static Matrix createScaleMatrix( float x, float y, float z );
+	static Matrix createRotationMatrix( RotationDirection dir, float angle ); //takes angle as degree
+
+	~Matrix( void );
+	GLfloat* exportForGL(  );
+	Matrix operator*( const Matrix& rhs );
 	void print();
-	std::string toString(std::vector<std::vector<float>> dataParam);
+	std::string toString( std::vector<std::vector<float>> dataParam );
+
+	//static constexpr RotationDirection X = RotationDirection::X;
+	//static constexpr RotationDirection Y = RotationDirection::Y;
+	//static constexpr RotationDirection Z = RotationDirection::Z;
 private:
 	std::vector<std::vector<float>> data;
 	std::vector<GLfloat> exportData;
