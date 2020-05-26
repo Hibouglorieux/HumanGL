@@ -1,7 +1,7 @@
 #include <Cube.hpp>
 
 Cube::Cube(std::array<float, 3> color) :
-    shader("shaders/plaincolor.vs", "shaders/plaincolor.fs"),
+    shader("shaders/plaincolor.vert", "shaders/plaincolor.frag"),
     //modelMat(glm::mat4(1.0f)),
     color(color)
 {

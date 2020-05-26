@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/25 16:29:40 by nathan           ###   ########.fr       */
+/*   Updated: 2020/05/26 10:04:50 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,6 @@ public:
 	void print();
 	std::string toString( std::vector<std::vector<float>> dataParam );
 
-	//static constexpr RotationDirection X = RotationDirection::X;
-	//static constexpr RotationDirection Y = RotationDirection::Y;
-	//static constexpr RotationDirection Z = RotationDirection::Z;
 private:
 	std::vector<std::vector<float>> data;
 	std::vector<GLfloat> exportData;

@@ -7,6 +7,7 @@ FILES = main.cpp \
 		Cube.cpp \
 		Loop.cpp \
 		Matrix.cpp \
+		Vec3.cpp \
 		Window.cpp
 
 OBJ = $(addprefix obj/,$(FILES:.cpp=.o))
