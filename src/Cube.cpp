@@ -1,10 +1,12 @@
 #include <Cube.hpp>
 
-Cube::Cube(std::array<float, 3> color) :
-    shader("shaders/plaincolor.vert", "shaders/plaincolor.frag"),
-    //modelMat(glm::mat4(1.0f)),
-    color(color)
-{
+Shader *Cube::shader = nullptr;
+GLuint Cube::VAO;
+GLuint Cube::VBO;
+GLuint Cube::EBO;
+
+void Cube::init() {
+	shader = new Shader("shaders/plaincolor.vert", "shaders/plaincolor.frag");
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
   
@@ -63,15 +65,10 @@ Cube::Cube(std::array<float, 3> color) :
     glBindVertexArray(0);
 }
 
-void Cube::draw(float *viewMat) const {
-    glUseProgram(shader.ID);
-    glUniformMatrix4fv(glGetUniformLocation(shader.ID, "view"), 1, GL_FALSE, viewMat);
-    glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_FALSE, modelMat);
-    glUniform3fv(glGetUniformLocation(shader.ID, "myColor"), 1, &color.front());
+void Cube::draw(float *mat, array<float, 3> color) {
+    glUseProgram(shader->ID);
+    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "model"), 1, GL_TRUE, mat);
+    glUniform3fv(glGetUniformLocation(shader->ID, "myColor"), 1, &color.front());
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
-}
-
-void Cube::setModelMat(float *modelMat) {
-    this->modelMat = modelMat;
 }

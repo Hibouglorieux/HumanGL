@@ -10,14 +10,16 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <GL/glew.h>
 #include "Loop.hpp"
 #include <glfw3.h>
 #include <unistd.h>
 #include "Window.hpp"
+#include "Skeleton.hpp"
 
 bool Loop::shouldStop = false;
 double Loop::frameTime = 0.0f;
-const double Loop::refreshingRate = 1.0 / 60.0;
+const double Loop::refreshingRate = 1.0 / 30.0;
 
 #define SEC_TO_MICROSEC 1000000
 
@@ -33,7 +35,8 @@ void Loop::loop()
 		//update(frameTime);
 
 		//render();
-
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		Skeleton::draw();
 		glfwSwapBuffers(Window::getWindow());
 
 		frameTime = glfwGetTime() - currentTimer;

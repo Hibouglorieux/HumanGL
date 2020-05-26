@@ -13,7 +13,7 @@
 #include <GL/glew.h>
 #include "Utilities.h"
 #include "Window.hpp"
-#include "Cube.hpp"
+#include "Skeleton.hpp"
 #include "Loop.hpp"
 #include "Matrix.hpp"
 
@@ -32,14 +32,9 @@ int		main( void )
 	// need to set gl parameters
     glEnable(GL_DEPTH_TEST);
 
-    float modelMat[16] = {1,0,0,0, 0,1,0,0, 0,0,1,0 ,0,0,0,1};
-    float viewMat[16] = {1,0,0,0, 0,1,0,0, 0,0,1,0 ,0,0,-10,1};
-    Cube cube{{0, 1, 0}};
-    cube.setModelMat(modelMat);
+	Skeleton::init();
 
     // draw
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    cube.draw(viewMat);
 	Loop::loop();
 
 	return 1;

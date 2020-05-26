@@ -147,6 +147,7 @@ GLfloat*	Matrix::exportForGL()
 {
 	int i;
 
+	exportData.resize(16);
 	i = 0;
 	while ( i < 4 )
 	{
@@ -172,6 +173,7 @@ Matrix Matrix::operator*( const Matrix& rhs )
 		firstColumn = 0;
 		while ( firstColumn < 4 )
 		{
+			newMatrix.data[firstRow][firstColumn] = 0;
 			secondColumn = 0;
 			while ( secondColumn < 4 )
 			{

@@ -4,18 +4,16 @@
 #include <iostream>
 #include <Shader.hpp>
 #include <array>
+using namespace std;
 
 class Cube {
 public:
-    Cube(std::array<float, 3> color);
-    void draw(float *viewMat) const;
-    void setModelMat(float *modelMat);
+	static void init();
+	static void draw(float *mat, array<float, 3> color);
 
 private:
-    GLuint VAO, VBO, EBO;
-    Shader shader;
-    float *modelMat;
-    std::array<float, 3> color;
+	static GLuint VAO, VBO, EBO;
+	static Shader *shader;
 
 };
 
