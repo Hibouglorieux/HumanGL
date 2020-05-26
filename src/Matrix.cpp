@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/25 16:33:29 by nathan           ###   ########.fr       */
+/*   Updated: 2020/05/26 10:04:35 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ Matrix Matrix::createScaleMatrix( float x, float y, float z )
 Matrix Matrix::createRotationMatrix( RotationDirection dir, float angle )
 {
 	Matrix rotationMatrix;
+	angle = TO_RAD(angle);
 	if ( dir == RotationDirection::X )
 	{
 		rotationMatrix = Matrix({
