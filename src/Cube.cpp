@@ -1,5 +1,7 @@
 #include <Cube.hpp>
+#include <string.h>
 
+float Cube::viewMat[16] = {1,0,0,0, 0,1,0,0, 0,0,1,-10, 0,0,0,1};
 Shader *Cube::shader = nullptr;
 GLuint Cube::VAO;
 GLuint Cube::VBO;
@@ -65,9 +67,14 @@ void Cube::init() {
     glBindVertexArray(0);
 }
 
-void Cube::draw(float *mat, array<float, 3> color) {
+void Cube::setViewMat(float *newMat) {
+	memcpy(viewMat, newMat, sizeof(float)*16);
+}
+
+void Cube::draw(float *modelMat, array<float, 3> color) {
     glUseProgram(shader->ID);
-    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "model"), 1, GL_TRUE, mat);
+    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "view"), 1, GL_TRUE, viewMat);
+    glUniformMatrix4fv(glGetUniformLocation(shader->ID, "model"), 1, GL_TRUE, modelMat);
     glUniform3fv(glGetUniformLocation(shader->ID, "myColor"), 1, &color.front());
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);

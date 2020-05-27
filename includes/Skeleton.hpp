@@ -20,9 +20,8 @@ using namespace std;
 class Skeleton {
 	public:
 		static void init();
-		static void draw();
+		static void draw(unsigned int anim, unsigned int frame);
 	private:
-		static vector<vector<float>> motion;
 
 };
 
