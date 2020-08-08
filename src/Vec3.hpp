@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:12:34 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/26 16:51:59 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/08 19:20:30 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 #include <cmath>
 #include <iostream>
 
-class Matrix;
 class Vec3 {
 public:
 	static const Vec3 ZERO;

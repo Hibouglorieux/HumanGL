@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/26 10:04:50 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/08 19:38:08 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <vector>
 #include <string>
 #include <sstream>
+#include <GL/glew.h>
 #include <GL/gl.h>
 
 class Matrix {

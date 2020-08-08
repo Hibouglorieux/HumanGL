@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/26 10:04:35 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/08 22:05:45 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ Matrix::~Matrix()
 
 GLfloat*	Matrix::exportForGL()
 {
+	exportData.resize(16);
 	int i;
 
 	i = 0;
@@ -165,7 +166,10 @@ Matrix Matrix::operator*( const Matrix& rhs )
 	int firstColumn = 0;
 	int secondColumn = 0;
 
-	Matrix newMatrix;
+	Matrix newMatrix( { {0, 0, 0, 0},
+						{0, 0, 0, 0},
+						{0, 0, 0, 0},
+						{0, 0, 0, 0} });
 	firstRow = 0;
 	while ( firstRow < 4 )
 	{

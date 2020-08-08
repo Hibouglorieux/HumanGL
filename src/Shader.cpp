@@ -1,41 +1,10 @@
-#include <Shader.hpp>
+#include "Shader.hpp"
 #include <Utilities.h>
 
 //temporary matrix functions
 #include <string.h>
 #include <math.h>
 using namespace std;
-#ifndef M_PI
-    #define M_PI 3.14159265358979323846
-#endif
-
-float	*mat_identity(float mat[16])
-{
-    memset(mat, 0, sizeof(float) * 16);
-    mat[0]=1;
-    mat[5]=1;
-    mat[10]=1;
-    mat[15]=1;
-    return mat;
-}
-
-#define FOV 60
-#define NEAR 0.1
-#define FAR 100
-
-float	*mat_projection(float ratio)
-{
-	static float mat[16];
-
-	mat_identity(mat);
-	mat[5] = 1 / tan(0.5 * FOV * M_PI / 180.0);
-	mat[0] = mat[5] / ratio;
-	mat[10] = -FAR / (FAR - NEAR);
-	mat[11] = -1;
-	mat[14] = -(FAR * NEAR) / (FAR - NEAR);
-	mat[15] = 0;
-	return (mat);
-}
 
 Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     // 1. retrieve the vertex/fragment source code from filePath
@@ -91,12 +60,11 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     glDeleteShader(fragment);
     // set projection matrix
     glUseProgram(ID);
-    glUniformMatrix4fv(glGetUniformLocation(ID, "projection"), 1, GL_FALSE, mat_projection((float)SCREEN_WIDTH/SCREEN_HEIGHT));
 }
 // utility uniform functions
 // ------------------------------------------------------------------------
 void Shader::setBool(const std::string &name, bool value) const
-{         
+{
     glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value); 
 }
 // ------------------------------------------------------------------------

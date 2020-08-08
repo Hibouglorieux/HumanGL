@@ -1,17 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cube.cpp                                           :+:      :+:    :+:   */
+/*   Cube.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/08 19:17:19 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/08 20:19:07 by nathan           ###   ########.fr       */
+/*   Created: 2020/08/08 19:17:30 by nathan            #+#    #+#             */
+/*   Updated: 2020/08/08 19:40:24 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cube.hpp"
+#ifndef CUBE_HPP
+#define CUBE_HPP
 
-Cube::Cube(float size, Matrix modelMat) : RectangularCuboid(size, size, size, modelMat)
-{
-}
+#include <iostream>
+#include <array>
+#include "Vec3.hpp"
+#include "RectangularCuboid.hpp"
+
+class Cube : public RectangularCuboid {
+public:
+	Cube(float size, Matrix modelMat = {});
+	virtual ~Cube(void) {}
+private:
+};
+
+#endif

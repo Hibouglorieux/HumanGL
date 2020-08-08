@@ -4,6 +4,8 @@ NAME = humangl
 FILES = main.cpp \
 		Utilities.cpp \
 		Shader.cpp \
+		Object.cpp \
+		RectangularCuboid.cpp \
 		Cube.cpp \
 		Loop.cpp \
 		Matrix.cpp \

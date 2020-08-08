@@ -1,17 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cube.cpp                                           :+:      :+:    :+:   */
+/*   Object.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/08 19:17:19 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/08 20:19:07 by nathan           ###   ########.fr       */
+/*   Created: 2020/08/08 19:05:09 by nathan            #+#    #+#             */
+/*   Updated: 2020/08/08 21:55:11 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cube.hpp"
 
-Cube::Cube(float size, Matrix modelMat) : RectangularCuboid(size, size, size, modelMat)
-{
-}
+#ifndef OBJECT_CLASS_H
+# define OBJECT_CLASS_H
+
+#include "Utilities.h"
+#include "Matrix.hpp"
+
+class Object {
+public:
+	Object(void);
+	virtual void draw(Matrix viewMat) = 0;
+	virtual ~Object(void);
+	static void setProjMat(Matrix projMat);
+protected:
+	static Matrix projMat;
+
+};
+
+#endif
