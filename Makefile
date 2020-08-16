@@ -6,7 +6,6 @@ FILES = main.cpp \
 		Shader.cpp \
 		Object.cpp \
 		RectangularCuboid.cpp \
-		Cube.cpp \
 		Loop.cpp \
 		Matrix.cpp \
 		Vec3.cpp \

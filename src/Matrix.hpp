@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/08 19:38:08 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/16 05:00:39 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ public:
 	~Matrix( void );
 	GLfloat* exportForGL(  );
 	Matrix operator*( const Matrix& rhs );
-	void print();
-	std::string toString( std::vector<std::vector<float>> dataParam );
+	Matrix& operator*=( const Matrix& rhs );
+	void print() const;
+	std::string toString( std::vector<std::vector<float>> dataParam ) const;
 
 private:
 	std::vector<std::vector<float>> data;

@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/08 22:05:45 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/16 05:04:30 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ Matrix Matrix::createRotationMatrix( RotationDirection dir, float angle )
 }
 
 
-std::string Matrix::toString( std::vector<std::vector<float>> dataParam )
+std::string Matrix::toString( std::vector<std::vector<float>> dataParam ) const
 {
 	std::stringstream ss;
 	ss.precision(2); // print only 2 first decimals
@@ -134,7 +134,7 @@ std::string Matrix::toString( std::vector<std::vector<float>> dataParam )
 	return ss.str();
 }
 
-void Matrix::print()
+void Matrix::print() const
 {
 	std::cout << toString( data ) << std::endl;
 }
@@ -188,3 +188,9 @@ Matrix Matrix::operator*( const Matrix& rhs )
 	}
 	return std::move( newMatrix );
 }
+
+Matrix& Matrix::operator*=( const Matrix& rhs )
+{
+	*this = *this * rhs;
+	return *this;
+}	
