@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:12:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/26 16:52:01 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/16 18:58:10 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Vec3::Vec3( float xx, float yy, float zz)
 	z = zz;
 }
 
-Vec3::Vec3( Vec3& copy)
+Vec3::Vec3( const Vec3& copy)
 {
 	x = copy.x;
 	y = copy.y;
@@ -63,6 +63,12 @@ Vec3 Vec3::operator+(const Vec3& rhs) const
 {
 	Vec3 newVector( x + rhs.x, y + rhs.y, z + rhs.z );
 	return newVector;
+}
+
+Vec3 Vec3::operator+=( const Vec3& rhs)
+{
+	*this = *this + rhs;
+	return *this;
 }
 
 Vec3 Vec3::operator-(const Vec3& rhs) const

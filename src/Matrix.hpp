@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 05:00:39 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/16 19:28:29 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <sstream>
 #include <GL/glew.h>
 #include <GL/gl.h>
+#include "Vec3.hpp"
 
 class Matrix {
 public:
@@ -32,13 +33,16 @@ public:
 
 	static Matrix createProjMatrix( float fov, float aspect, float near, float far );// takes fov as degree
 	static Matrix createTranslationMatrix( float x, float y, float z );
+	static Matrix createTranslationMatrix(Vec3 vec) {return createTranslationMatrix(vec.x, vec.y, vec.z);}
 	static Matrix createScaleMatrix( float x, float y, float z );
+	static Matrix createScaleMatrix(Vec3 vec) {return createScaleMatrix(vec.x, vec.y, vec.z);}
 	static Matrix createRotationMatrix( RotationDirection dir, float angle ); //takes angle as degree
 
+	Vec3 vectorMult(const Vec3 vec) const;
 	~Matrix( void );
 	GLfloat* exportForGL(  );
-	Matrix operator*( const Matrix& rhs );
-	Matrix& operator*=( const Matrix& rhs );
+	Matrix operator*( const Matrix& rhs ) const;
+	Matrix operator*=( const Matrix& rhs );
 	void print() const;
 	std::string toString( std::vector<std::vector<float>> dataParam ) const;
 

@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:12:34 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/08 19:20:30 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/16 18:56:32 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ public:
 	static const Vec3 ONE;
 	Vec3( void );
 	Vec3( float xx, float yy, float zz );
-	Vec3( Vec3& copy );
+	Vec3( const Vec3& copy );
 	~Vec3(){}
 
 	float getLength() const;
@@ -33,6 +33,7 @@ public:
 	void print() const;
 	
 	Vec3 operator+( const Vec3& rhs ) const;
+	Vec3 operator+=( const Vec3& rhs);
 	Vec3 operator-( const Vec3& rhs ) const;
 	Vec3 operator*( const float scale ) const;
 

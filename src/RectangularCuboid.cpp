@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:01 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 05:33:27 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/16 21:41:54 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 RectangularCuboid::RectangularCuboid(float width, float height, float depth)
 	: shader("shaders/plaincolor.vert", "shaders/plaincolor.frag"), color({0.0f, 0.7f, 0.7f})
 {
+	hasAnchor = false;
+	scale = Vec3(1, 1, 1);
+	rot = Vec3(0, 0, 0);
+	pos = Vec3(0, 0, 0);
+	anchor = Vec3(0, 0, 0);
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
   
@@ -110,7 +115,6 @@ void RectangularCuboid::draw(Matrix viewMat)
 	if (shouldUpdateMats)
 		updateMatrixes();
 	Matrix precalcMat = projMat * viewMat * modelMat;
-	modelMat.print();
     glUseProgram(shader.ID);
     glUniformMatrix4fv(glGetUniformLocation(shader.ID, "proj"), 1, GL_TRUE, projMat.exportForGL());
     glUniformMatrix4fv(glGetUniformLocation(shader.ID, "view"), 1, GL_TRUE, viewMat.exportForGL());
@@ -121,6 +125,15 @@ void RectangularCuboid::draw(Matrix viewMat)
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
 
+void RectangularCuboid::drawChildren(Matrix viewMat)
+{
+	for (auto child : this->getChildren())
+	{
+		child->draw(viewMat);
+		child->drawChildren(viewMat);
+	}
+}
+
 Matrix RectangularCuboid::getModelMat()
 {
 	return modelMat;
@@ -128,18 +141,89 @@ Matrix RectangularCuboid::getModelMat()
 
 void RectangularCuboid::onNewParent()
 {
+	shouldUpdateMats = true;		
+}
+
+void RectangularCuboid::setPos(Vec3 newPos)
+{
+	pos = newPos;
 	shouldUpdateMats = true;
 }
 
+void RectangularCuboid::setRot(Vec3 newRot)
+{
+	rot = newRot;
+	shouldUpdateMats = true;
+}
+
+void RectangularCuboid::setScale(Vec3 newScale)
+{
+	scale = newScale;
+	shouldUpdateMats = true;
+}
+
+void RectangularCuboid::setAnchor(Vec3 newAnchor)
+{
+	hasAnchor = true;
+	anchor = newAnchor;
+}
+
+void RectangularCuboid::updateMatrixes()
+{
+	RectangularCuboid* tmpParent = dynamic_cast<RectangularCuboid*>(parent);
+	RectangularCuboid* tmpChild = this;
+	Vec3 tmpPos, tmpRot;
+	while (tmpParent)
+	{
+		if (tmpChild->hasAnchor)
+		{
+			Vec3 anchoredPos = {tmpChild->anchor.x * tmpParent->getWidth() / 2 * tmpParent->getScale().x,
+								tmpChild->anchor.y * tmpParent->getHeight() / 2 * tmpParent->getScale().y,
+								tmpChild->anchor.z * tmpParent->getDepth() / 2 * tmpParent->getScale().z};
+			anchoredPos.x -= tmpChild->getWidth() / 2 * tmpChild->selfAnchor.x * tmpChild->getScale().x;
+			anchoredPos.y -= tmpChild->getHeight() / 2 * tmpChild->selfAnchor.y * tmpChild->getScale().y;
+			anchoredPos.z -= tmpChild->getDepth() / 2 * tmpChild->selfAnchor.z * tmpChild->getScale().z;
+			if (tmpParent->shouldUpdateMats)
+				tmpParent->updateMatrixes();
+			anchoredPos = tmpParent->rotMat.vectorMult(anchoredPos);
+			tmpPos += anchoredPos;
+		}
+		tmpPos += tmpParent->getPos();
+		tmpRot += tmpParent->getRot();
+		tmpChild = tmpParent;
+		tmpParent = dynamic_cast<RectangularCuboid*>(tmpParent->getParent());
+	}
+	tmpPos += pos;
+	tmpRot += rot;
+
+	transMat = Matrix::createTranslationMatrix(tmpPos);
+	rotMat = Matrix();
+	if (tmpRot.x != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::X, tmpRot.x);
+	if (tmpRot.y != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Y, tmpRot.y);
+	if (tmpRot.z != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Z, tmpRot.z);
+	scaleMat = Matrix::createScaleMatrix(scale);
+	modelMat = transMat * rotMat * scaleMat;
+	shouldUpdateMats = false;
+}
+/*
 void RectangularCuboid::updateMatrixes()
 {
 	RectangularCuboid* tmpParent = dynamic_cast<RectangularCuboid*>(parent);
 	Matrix tmpTransMat, tmpRotMat, tmpScaleMat;
 	while (tmpParent)
 	{
+		_posX += tmpParent->posX() * tmpParent->scaleX();
+		_posY += tmpParent->posY() * tmpParent->scaleY();
+		_posZ += tmpParent->posZ() * tmpParent->scaleZ();
+		_rotX += tmpParent->rotX();
+		_rotY += tmpParent->rotY();
+		_rotZ += tmpParent->rotZ();
 		tmpTransMat *= tmpParent->transMat;
 		tmpRotMat *= tmpParent->rotMat;
-		tmpScaleMat *= tmpParent->scaleMat;
+		tmpScaleMat *= tmpParent->scaleMat;// Fix idea : instead of getting scale mat, mult transmat by another transmat from x y z component of scale mat,
 		tmpParent = dynamic_cast<RectangularCuboid*>(tmpParent->getParent());
 	}
 	tmpTransMat *= transMat;
@@ -149,3 +233,4 @@ void RectangularCuboid::updateMatrixes()
 	modelMat = tmpScaleMat * tmpTransMat * tmpRotMat; // fix for scale position ?
 	shouldUpdateMats = false;
 }
+*/

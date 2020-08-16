@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 05:04:30 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/16 19:34:38 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,20 @@ void Matrix::print() const
 	std::cout << toString( data ) << std::endl;
 }
 
+Vec3 Matrix::vectorMult(const Vec3 vec) const
+{
+	Vec3 newVec;
+	
+		for (int j = 0; j < 3; j++)
+		{
+			float v = j == 0 ? vec.x : j == 1 ? vec.y : vec.z;
+			newVec.x += this->data[0][j] * v;
+			newVec.y += this->data[1][j] * v;
+			newVec.z += this->data[2][j] * v;
+		}
+	return newVec;
+}
+
 Matrix::~Matrix()
 {
 }
@@ -160,7 +174,7 @@ GLfloat*	Matrix::exportForGL()
 	return exportData.data();
 }
 
-Matrix Matrix::operator*( const Matrix& rhs )
+Matrix Matrix::operator*( const Matrix& rhs ) const
 {
 	int firstRow = 0;
 	int firstColumn = 0;
@@ -189,8 +203,16 @@ Matrix Matrix::operator*( const Matrix& rhs )
 	return std::move( newMatrix );
 }
 
-Matrix& Matrix::operator*=( const Matrix& rhs )
+Matrix Matrix::operator*=( const Matrix& rhs )
 {
 	*this = *this * rhs;
 	return *this;
 }	
+
+/*
+Matix Matrix::scaleTranslationMatrix( Matrix transMat, const Matrix& scaleMat)
+{
+	transMat.data[3][0] * = scaleMat.data[0][0];
+	return (transMat);
+}
+*/

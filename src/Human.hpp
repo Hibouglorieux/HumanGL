@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cube.hpp                                           :+:      :+:    :+:   */
+/*   Human.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/08 19:17:30 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/08 19:40:24 by nathan           ###   ########.fr       */
+/*   Created: 2020/08/16 21:11:34 by nathan            #+#    #+#             */
+/*   Updated: 2020/08/16 21:47:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE_HPP
-#define CUBE_HPP
-
-#include <iostream>
-#include <array>
-#include "Vec3.hpp"
 #include "RectangularCuboid.hpp"
 
-class Cube : public RectangularCuboid {
+#ifndef HUMAN_CLASS_H
+# define HUMAN_CLASS_H
+
+// TODO handle copy
+class Human {
 public:
-	Cube(float size, Matrix modelMat = {});
-	virtual ~Cube(void) {}
+	Human(void);
+	void draw(Matrix viewMat);
+	void setPos(float x, float y, float z){torso->setPos(x, y, z);}
+	void setRot(float x, float y, float z){torso->setRot(x, y, z);}
+	void setScale(float x, float y, float z);
+	~Human(void);
 private:
+	RectangularCuboid *head, *torso, *rightArm, *leftArm, *rightForeArm, *leftForeArm, *leftThigh, *rightThigh, *leftLeg, *rightLeg;// maybe stack instead ?
 };
 
 #endif
