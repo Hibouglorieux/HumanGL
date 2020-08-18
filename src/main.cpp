@@ -30,11 +30,11 @@ int		main( void )
 		return 0;
 	}
 	// need to set gl parameters
-    glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 
 	Skeleton::init();
 
-    // draw
+	// draw
 	Loop::loop();
 
 	Window::ExitAndCleanup();

@@ -46,21 +46,21 @@ int Window::init()
 
 		glfwMakeContextCurrent(window);
 
-	    // Setup Dear ImGui context
-	    IMGUI_CHECKVERSION();
-	    ImGui::CreateContext();
-	    ImGuiIO& io = ImGui::GetIO(); (void)io;
-	    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-	    //io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+		// Setup Dear ImGui context
+		IMGUI_CHECKVERSION();
+		ImGui::CreateContext();
+		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
-	    // Setup Dear ImGui style
-	    ImGui::StyleColorsDark();
-	    //ImGui::StyleColorsClassic();
+		// Setup Dear ImGui style
+		ImGui::StyleColorsDark();
+		//ImGui::StyleColorsClassic();
 
-	    // Setup Platform/Renderer bindings
-	    ImGui_ImplGlfw_InitForOpenGL(window, true);
-	    const char* glsl_version = "#version 130";
-	    ImGui_ImplOpenGL3_Init(glsl_version);
+		// Setup Platform/Renderer bindings
+		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		const char* glsl_version = "#version 130";
+		ImGui_ImplOpenGL3_Init(glsl_version);
 
 	}
 	initialized = true;
@@ -68,13 +68,13 @@ int Window::init()
 }
 
 void Window::ExitAndCleanup() {
-    // Cleanup
-    ImGui_ImplOpenGL3_Shutdown();
-    ImGui_ImplGlfw_Shutdown();
-    ImGui::DestroyContext();
+	// Cleanup
+	ImGui_ImplOpenGL3_Shutdown();
+	ImGui_ImplGlfw_Shutdown();
+	ImGui::DestroyContext();
 
-    glfwDestroyWindow(window);
-    glfwTerminate();
+	glfwDestroyWindow(window);
+	glfwTerminate();
 }
 
 GLFWwindow*	Window::getWindow()

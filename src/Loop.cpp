@@ -35,10 +35,10 @@ void Loop::loop()
 	{
 		double currentTimer = glfwGetTime();
 		processInput();
-        // Start the Dear ImGui frame
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+		// Start the Dear ImGui frame
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
 		//update(frameTime);
 
@@ -64,7 +64,7 @@ void Loop::processInput()
 
 void Loop::keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
 	(void)scancode;
-    (void)mods;
-    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
-        glfwSetWindowShouldClose(window, true);
+	(void)mods;
+	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+		glfwSetWindowShouldClose(window, true);
 }
