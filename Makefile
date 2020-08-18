@@ -33,7 +33,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	$(CXX) $^ -o $@ $(LIBS)
 
-obj/%.o:src/%.cpp #includes/*.h #add rule here
+obj/%.o:src/%.cpp includes/*.h $(wildacrd $(src/%.hpp))
 	@mkdir -p obj
 	$(CXX) $(CXXFLAGS) -c $< -o $@ -Iincludes -Ilibft
 

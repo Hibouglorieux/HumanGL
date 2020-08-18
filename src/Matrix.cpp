@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 19:34:38 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/17 22:03:35 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,16 +139,19 @@ void Matrix::print() const
 	std::cout << toString( data ) << std::endl;
 }
 
-Vec3 Matrix::vectorMult(const Vec3 vec) const
+Vec3 Matrix::vectorMult(const Vec3 vec)
 {
 	Vec3 newVec;
-	
-		for (int j = 0; j < 3; j++)
+	for (int i = 0; i < 3; 	i++)	
+		for (int j = 0; j < 4; j++)
 		{
+			newVec[i] += this->data[i][j] * (j > 2 ? 1 : vec.at(j));
+				/*
 			float v = j == 0 ? vec.x : j == 1 ? vec.y : vec.z;
 			newVec.x += this->data[0][j] * v;
 			newVec.y += this->data[1][j] * v;
 			newVec.z += this->data[2][j] * v;
+			*/
 		}
 	return newVec;
 }

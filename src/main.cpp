@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 01:52:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 21:47:48 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/18 06:04:18 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,16 @@ int		main( void )
 
     Matrix viewMat = Matrix::createTranslationMatrix(0, -2.0f, -10);
 
-	/*
-	RectangularCuboid head(0.6, 0.6, 0.6);
-	head.setColor({1.0f, 0.0f, 1.0f});
-	RectangularCuboid torso = RectangularCuboid(1, 2, 0.8);
-	head.setParent(&torso);
-	head.setAnchor({0, 1, 0});
-	head.setSelfAnchor({0, -1, 0});
-	torso.setColor({1.0f, 0.0f, 0.0f});
-	torso.setPos({-1, 0, 0});
-	torso.setRot({0, 45, 0});
-	torso.setScale({1, 1, 1});
-	head.setScale(1, 1, 1);
-	RectangularCuboid rightArm(0.2, 1, 0.2);
-	rightArm.setColor({0.0f, 0.0f, 1.0f});
-	rightArm.setSelfAnchor({1, 1, 0});
-	rightArm.setParent(&torso);
-	rightArm.setAnchor({-1, 0.9f, 0});
-	RectangularCuboid rightForeArm(0.2, 1, 0.2);
-	rightForeArm.setColor({0.0f, 0.2f, 0.7f});
-	rightForeArm.setSelfAnchor({0, 1, 0});
-	rightForeArm.setParent(&rightArm);
-	rightForeArm.setAnchor({0, -1, 0});
-	*/
 	Human human;
-	Human human2;
-	human2.setPos(3, 0, 0);
+	Human* human2 = new Human();
+	human2->setPos(3, 0, 0);
 	Human human3;
 	human3.setPos(0, 3.5, 0);
 	human3.setRot(180, 0, 0);
-	human3.setScale(0.5, 0.5, 0.5);
+	human3.setScale(0.5);
+	std::cout << human.body[Human::rightArm]->getPos().toString() << std::endl;
+	RectangularCuboid test(0.5, 2, 0.5);
+
 
 	// TODO move to loop
     // draw
@@ -74,7 +54,8 @@ int		main( void )
 	test.print();
 	*/
 	human.draw(viewMat);
-	human2.draw(viewMat);
+	human2->draw(viewMat);
+	delete human2;
 	human3.draw(viewMat);
 	Loop::loop();
 

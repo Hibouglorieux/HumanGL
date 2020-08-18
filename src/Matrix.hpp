@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 19:28:29 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/17 21:56:39 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ public:
 	static Matrix createScaleMatrix(Vec3 vec) {return createScaleMatrix(vec.x, vec.y, vec.z);}
 	static Matrix createRotationMatrix( RotationDirection dir, float angle ); //takes angle as degree
 
-	Vec3 vectorMult(const Vec3 vec) const;
+	Vec3 vectorMult(const Vec3 vec);
 	~Matrix( void );
 	GLfloat* exportForGL(  );
 	Matrix operator*( const Matrix& rhs ) const;

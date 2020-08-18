@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:01 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 21:41:54 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/18 05:58:05 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ RectangularCuboid::RectangularCuboid(float width, float height, float depth)
 	: shader("shaders/plaincolor.vert", "shaders/plaincolor.frag"), color({0.0f, 0.7f, 0.7f})
 {
 	hasAnchor = false;
-	scale = Vec3(1, 1, 1);
+	scale = Vec3(width, height, depth);
 	rot = Vec3(0, 0, 0);
 	pos = Vec3(0, 0, 0);
 	anchor = Vec3(0, 0, 0);
@@ -26,54 +26,48 @@ RectangularCuboid::RectangularCuboid(float width, float height, float depth)
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
-	_width = width;
-	_height = height;
-	_depth = depth;
-	width /= 2;
-	height /= 2;
-	depth /= 2;
     float vertices[] = {
-        -width, -height, -depth,  0.0f, 0.0f,
-        width, -height, -depth,  1.0f, 0.0f,
-        width,  height, -depth,  1.0f, 1.0f,
-        width,  height, -depth,  1.0f, 1.0f,
-        -width,  height, -depth,  0.0f, 1.0f,
-        -width, -height, -depth,  0.0f, 0.0f,
+        -0.5, -0.5, -0.5,  0.0f, 0.0f,
+        0.5, -0.5, -0.5,  1.0f, 0.0f,
+        0.5,  0.5, -0.5,  1.0f, 1.0f,
+        0.5,  0.5, -0.5,  1.0f, 1.0f,
+        -0.5,  0.5, -0.5,  0.0f, 1.0f,
+        -0.5, -0.5, -0.5,  0.0f, 0.0f,
 
-        -width, -height,  depth,  0.0f, 0.0f,
-        width, -height,  depth,  1.0f, 0.0f,
-        width,  height,  depth,  1.0f, 1.0f,
-        width,  height,  depth,  1.0f, 1.0f,
-        -width,  height,  depth,  0.0f, 1.0f,
-        -width, -height,  depth,  0.0f, 0.0f,
+        -0.5, -0.5,  0.5,  0.0f, 0.0f,
+        0.5, -0.5,  0.5,  1.0f, 0.0f,
+        0.5,  0.5,  0.5,  1.0f, 1.0f,
+        0.5,  0.5,  0.5,  1.0f, 1.0f,
+        -0.5,  0.5,  0.5,  0.0f, 1.0f,
+        -0.5, -0.5,  0.5,  0.0f, 0.0f,
 
-        -width,  height,  depth,  1.0f, 0.0f,
-        -width,  height, -depth,  1.0f, 1.0f,
-        -width, -height, -depth,  0.0f, 1.0f,
-        -width, -height, -depth,  0.0f, 1.0f,
-        -width, -height,  depth,  0.0f, 0.0f,
-        -width,  height,  depth,  1.0f, 0.0f,
+        -0.5,  0.5,  0.5,  1.0f, 0.0f,
+        -0.5,  0.5, -0.5,  1.0f, 1.0f,
+        -0.5, -0.5, -0.5,  0.0f, 1.0f,
+        -0.5, -0.5, -0.5,  0.0f, 1.0f,
+        -0.5, -0.5,  0.5,  0.0f, 0.0f,
+        -0.5,  0.5,  0.5,  1.0f, 0.0f,
 
-        width,  height,  depth,  1.0f, 0.0f,
-        width,  height, -depth,  1.0f, 1.0f,
-        width, -height, -depth,  0.0f, 1.0f,
-        width, -height, -depth,  0.0f, 1.0f,
-        width, -height,  depth,  0.0f, 0.0f,
-        width,  height,  depth,  1.0f, 0.0f,
+        0.5,  0.5,  0.5,  1.0f, 0.0f,
+        0.5,  0.5, -0.5,  1.0f, 1.0f,
+        0.5, -0.5, -0.5,  0.0f, 1.0f,
+        0.5, -0.5, -0.5,  0.0f, 1.0f,
+        0.5, -0.5,  0.5,  0.0f, 0.0f,
+        0.5,  0.5,  0.5,  1.0f, 0.0f,
 
-        -width, -height, -depth,  0.0f, 1.0f,
-        width, -height, -depth,  1.0f, 1.0f,
-        width, -height,  depth,  1.0f, 0.0f,
-        width, -height,  depth,  1.0f, 0.0f,
-        -width, -height,  depth,  0.0f, 0.0f,
-        -width, -height, -depth,  0.0f, 1.0f,
+        -0.5, -0.5, -0.5,  0.0f, 1.0f,
+        0.5, -0.5, -0.5,  1.0f, 1.0f,
+        0.5, -0.5,  0.5,  1.0f, 0.0f,
+        0.5, -0.5,  0.5,  1.0f, 0.0f,
+        -0.5, -0.5,  0.5,  0.0f, 0.0f,
+        -0.5, -0.5, -0.5,  0.0f, 1.0f,
 
-        -width,  height, -depth,  0.0f, 1.0f,
-        width,  height, -depth,  1.0f, 1.0f,
-        width,  height,  depth,  1.0f, 0.0f,
-        width,  height,  depth,  1.0f, 0.0f,
-        -width,  height,  depth,  0.0f, 0.0f,
-        -width,  height, -depth,  0.0f, 1.0f
+        -0.5,  0.5, -0.5,  0.0f, 1.0f,
+        0.5,  0.5, -0.5,  1.0f, 1.0f,
+        0.5,  0.5,  0.5,  1.0f, 0.0f,
+        0.5,  0.5,  0.5,  1.0f, 0.0f,
+        -0.5,  0.5,  0.5,  0.0f, 0.0f,
+        -0.5,  0.5, -0.5,  0.0f, 1.0f
     };
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);  
 
@@ -114,7 +108,9 @@ void RectangularCuboid::draw(Matrix viewMat)
 {
 	if (shouldUpdateMats)
 		updateMatrixes();
-	Matrix precalcMat = projMat * viewMat * modelMat;
+	//Matrix precalcMat = projMat * viewMat * modelMat;
+	Matrix precalcMat = projMat * viewMat;
+	precalcMat *= modelMat;
     glUseProgram(shader.ID);
     glUniformMatrix4fv(glGetUniformLocation(shader.ID, "proj"), 1, GL_TRUE, projMat.exportForGL());
     glUniformMatrix4fv(glGetUniformLocation(shader.ID, "view"), 1, GL_TRUE, viewMat.exportForGL());
@@ -177,12 +173,12 @@ void RectangularCuboid::updateMatrixes()
 	{
 		if (tmpChild->hasAnchor)
 		{
-			Vec3 anchoredPos = {tmpChild->anchor.x * tmpParent->getWidth() / 2 * tmpParent->getScale().x,
-								tmpChild->anchor.y * tmpParent->getHeight() / 2 * tmpParent->getScale().y,
-								tmpChild->anchor.z * tmpParent->getDepth() / 2 * tmpParent->getScale().z};
-			anchoredPos.x -= tmpChild->getWidth() / 2 * tmpChild->selfAnchor.x * tmpChild->getScale().x;
-			anchoredPos.y -= tmpChild->getHeight() / 2 * tmpChild->selfAnchor.y * tmpChild->getScale().y;
-			anchoredPos.z -= tmpChild->getDepth() / 2 * tmpChild->selfAnchor.z * tmpChild->getScale().z;
+			Vec3 anchoredPos = {tmpChild->anchor.x * tmpParent->getScale().x * 0.5f,
+								tmpChild->anchor.y * tmpParent->getScale().y * 0.5f,
+								tmpChild->anchor.z * tmpParent->getScale().z * 0.5f};
+			anchoredPos.x -= tmpChild->selfAnchor.x * tmpChild->getScale().x * 0.5f;
+			anchoredPos.y -= tmpChild->selfAnchor.y * tmpChild->getScale().y * 0.5f;
+			anchoredPos.z -= tmpChild->selfAnchor.z * tmpChild->getScale().z * 0.5f;
 			if (tmpParent->shouldUpdateMats)
 				tmpParent->updateMatrixes();
 			anchoredPos = tmpParent->rotMat.vectorMult(anchoredPos);
@@ -196,16 +192,17 @@ void RectangularCuboid::updateMatrixes()
 	tmpPos += pos;
 	tmpRot += rot;
 
-	transMat = Matrix::createTranslationMatrix(tmpPos);
+	transMat = Matrix::createTranslationMatrix(tmpPos + (selfAnchor * scale * 0.5));
 	rotMat = Matrix();
-	if (tmpRot.x != 0)
-		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::X, tmpRot.x);
 	if (tmpRot.y != 0)
 		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Y, tmpRot.y);
+	if (tmpRot.x != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::X, tmpRot.x);
 	if (tmpRot.z != 0)
 		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Z, tmpRot.z);
 	scaleMat = Matrix::createScaleMatrix(scale);
-	modelMat = transMat * rotMat * scaleMat;
+	//modelMat = transMat * rotMat * scaleMat;
+	modelMat = transMat * rotMat * Matrix::createTranslationMatrix(-selfAnchor * scale * 0.5) * scaleMat;
 	shouldUpdateMats = false;
 }
 /*

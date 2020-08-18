@@ -6,12 +6,12 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:12:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 18:58:10 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/18 05:45:19 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Vec3.hpp"
-
+#include <string>
 
 Vec3::Vec3( void )
 {
@@ -81,6 +81,36 @@ Vec3 Vec3::operator*(const float scale) const
 {
 	Vec3 newVector( x * scale, y * scale, z * scale );
 	return newVector;
+}
+
+Vec3 Vec3::operator*(const Vec3& rhs) const
+{
+	Vec3 newVector( x * rhs.x, y * rhs.y, z * rhs.z);
+	return newVector;
+}
+
+float Vec3::at(const int i) const
+{
+	if (i == 0) return x;
+	if (i == 1) return y;
+	if (i == 2) return z;
+	std::string err("Trying to access " + std::to_string(i) + " on Vec3 object");
+	std::cerr << err << std::endl;
+	throw err;
+}
+float& Vec3::operator[]( const int i )
+{
+	if (i == 0) return x;
+	if (i == 1) return y;
+	if (i == 2) return z;
+	std::string err("Trying to access " + std::to_string(i) + " on Vec3 object");
+	std::cerr << err << std::endl;
+	throw err;
+}
+
+Vec3 Vec3::operator-() const
+{
+	return Vec3(-x, -y, -z);
 }
 
 const Vec3 Vec3::ZERO(0, 0 ,0);

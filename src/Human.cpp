@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 21:11:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/16 21:47:40 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/18 06:03:29 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,97 +14,93 @@
 
 Human::Human()
 {
-	torso = new RectangularCuboid(1, 2, 0.8);
-	torso->setColor({1.0f, 0.0f, 0.0f});
+	body.resize(rightLeg + 1);
 
-	head = new RectangularCuboid(0.6, 0.6, 0.6);
-	head->setColor({1.0f, 0.0f, 1.0f});
-	head->setParent(torso);
-	head->setAnchor({0, 1, 0});
-	head->setSelfAnchor({0, -1, 0});
+	body[torso] = new RectangularCuboid(1, 2, 0.8);
+	body[torso]->setColor({1.0f, 0.0f, 0.0f});
+
+	body[head] = new RectangularCuboid(0.6, 0.6, 0.6);
+	body[head]->setColor({1.0f, 0.0f, 1.0f});
+	body[head]->setParent(body[torso]);
+	body[head]->setAnchor({0, 1, 0});
+	body[head]->setSelfAnchor({0, -1, 0});
 
 
-	rightArm = new RectangularCuboid(0.2, 1, 0.2);
-	rightArm->setColor({0.0f, 0.0f, 1.0f});
-	rightArm->setSelfAnchor({1, 1, 0});
-	rightArm->setParent(torso);
-	rightArm->setAnchor({-1, 0.9f, 0});
+	body[rightArm] = new RectangularCuboid(0.2, 1, 0.2);
+	body[rightArm]->setColor({0.0f, 0.0f, 1.0f});
+	body[rightArm]->setRot({0, 0, -90});
+	body[rightArm]->setSelfAnchor({1, 1, 0});
+	body[rightArm]->setParent(body[torso]);
+	body[rightArm]->setAnchor({-1, 0.8f, 0});
 
-	rightForeArm = new RectangularCuboid(0.2, 1, 0.2);
-	rightForeArm->setColor({0.0f, 0.2f, 0.7f});
-	rightForeArm->setSelfAnchor({0, 1, 0});
-	rightForeArm->setParent(rightArm);
-	rightForeArm->setAnchor({0, -1, 0});
+	body[rightForeArm] = new RectangularCuboid(0.2, 1, 0.2);
+	body[rightForeArm]->setColor({0.0f, 0.2f, 0.7f});
+	body[rightForeArm]->setSelfAnchor({0, 1, 0});
+	body[rightForeArm]->setParent(body[rightArm]);
+	body[rightForeArm]->setAnchor({0, -1, 0});
 
-	leftArm = new RectangularCuboid(0.2, 1, 0.2);
-	leftArm->setColor({0.0f, 0.0f, 1.0f});
-	leftArm->setSelfAnchor({-1, 1, 0});
-	leftArm->setParent(torso);
-	leftArm->setAnchor({1, 0.9f, 0});
+	body[leftArm] = new RectangularCuboid(0.2, 1, 0.2);
+	body[leftArm]->setColor({0.0f, 0.0f, 1.0f});
+	body[leftArm]->setSelfAnchor({-1, 1, 0});
+	body[leftArm]->setParent(body[torso]);
+	body[leftArm]->setAnchor({1, 0.8f, 0});
 
-	leftForeArm = new RectangularCuboid(0.2, 1, 0.2);
-	leftForeArm->setColor({0.0f, 0.2f, 0.7f});
-	leftForeArm->setSelfAnchor({0, 1, 0});
-	leftForeArm->setParent(leftArm);
-	leftForeArm->setAnchor({0, -1, 0});
+	body[leftForeArm] = new RectangularCuboid(0.2, 1, 0.2);
+	body[leftForeArm]->setColor({0.0f, 0.2f, 0.7f});
+	body[leftForeArm]->setSelfAnchor({0, 1, 0});
+	body[leftForeArm]->setParent(body[leftArm]);
+	body[leftForeArm]->setAnchor({0, -1, 0});
 
-	leftThigh = new RectangularCuboid(0.3, 1.2, 0.4);
-	leftThigh->setColor({0.0f, 0.0f, 0.4f});
-	leftThigh->setParent(torso);
-	leftThigh->setSelfAnchor({0, 1, 0});
-	leftThigh->setAnchor({0.4, -1, 0});
+	body[leftUpLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
+	body[leftUpLeg]->setColor({0.0f, 0.0f, 0.4f});
+	body[leftUpLeg]->setParent(body[torso]);
+	body[leftUpLeg]->setSelfAnchor({0, 1, 0});
+	body[leftUpLeg]->setAnchor({0.4, -1, 0});
 
-	leftLeg = new RectangularCuboid(0.3, 1.2, 0.4);
-	leftLeg->setColor({0.4f, 0.0f, 0.4f});
-	leftLeg->setParent(leftThigh);
-	leftLeg->setSelfAnchor({0, 1, 0});
-	leftLeg->setAnchor({0, -1, 0});
+	body[leftLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
+	body[leftLeg]->setColor({0.4f, 0.0f, 0.4f});
+	body[leftLeg]->setParent(body[leftUpLeg]);
+	body[leftLeg]->setSelfAnchor({0, 1, 0});
+	body[leftLeg]->setAnchor({0, -1, 0});
 
-	rightThigh = new RectangularCuboid(0.3, 1.2, 0.4);
-	rightThigh->setColor({0.0f, 0.0f, 0.4f});
-	rightThigh->setParent(torso);
-	rightThigh->setSelfAnchor({0, 1, 0});
-	rightThigh->setAnchor({-0.4, -1, 0});
+	body[rightUpLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
+	body[rightUpLeg]->setColor({0.0f, 0.0f, 0.4f});
+	body[rightUpLeg]->setParent(body[torso]);
+	body[rightUpLeg]->setSelfAnchor({0, 1, 0});
+	body[rightUpLeg]->setAnchor({-0.4, -1, 0});
 
-	rightLeg = new RectangularCuboid(0.3, 1.2, 0.4);
-	rightLeg->setColor({0.4f, 0.0f, 0.4f});
-	rightLeg->setParent(rightThigh);
-	rightLeg->setSelfAnchor({0, 1, 0});
-	rightLeg->setAnchor({0, -1, 0});
+	body[rightLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
+	body[rightLeg]->setColor({0.4f, 0.0f, 0.4f});
+	body[rightLeg]->setParent(body[rightUpLeg]);
+	body[rightLeg]->setSelfAnchor({0, 1, 0});
+	body[rightLeg]->setAnchor({0, -1, 0});
 }
 
 Human::~Human()
 {
-	delete head;
-	delete torso;
-	delete rightArm;
-	delete leftArm;
-	delete rightForeArm;
-	delete leftForeArm;
-	delete leftThigh;
-	delete rightThigh;
-	delete leftLeg;
-	delete rightLeg;
+	for (RectangularCuboid* part : body)
+	{
+		delete part;
+	}
+	body.clear();
 }
 
-void Human::setScale(float x, float y, float z)
+void Human::setScale(float x)
 {
-	Vec3 newScale(x, y, z);
-
-	head->setScale(newScale);
-	torso->setScale(newScale);
-	rightArm->setScale(newScale);
-	leftArm->setScale(newScale);
-	rightForeArm->setScale(newScale);
-	leftForeArm->setScale(newScale);
-	leftThigh->setScale(newScale);
-	rightThigh->setScale(newScale);
-	leftLeg->setScale(newScale);
-	rightLeg->setScale(newScale);
+	body[head]->setScale(body[head]->getScale() * x);
+	body[torso]->setScale(body[torso]->getScale() * x);
+	body[rightArm]->setScale(body[rightArm]->getScale() * x);
+	body[leftArm]->setScale(body[leftArm]->getScale() * x);
+	body[rightForeArm]->setScale(body[rightForeArm]->getScale() * x);
+	body[leftForeArm]->setScale(body[leftForeArm]->getScale() * x);
+	body[leftUpLeg]->setScale(body[leftUpLeg]->getScale() * x);
+	body[rightUpLeg]->setScale(body[rightUpLeg]->getScale() * x);
+	body[leftLeg]->setScale(body[leftLeg]->getScale() * x);
+	body[rightLeg]->setScale(body[rightLeg]->getScale() * x);
 }
 
 void Human::draw(Matrix viewMat)
 {
-	torso->draw(viewMat);
-	torso->drawChildren(viewMat);
+	body[torso]->draw(viewMat);
+	body[torso]->drawChildren(viewMat);
 }
