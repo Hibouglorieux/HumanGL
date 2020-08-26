@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 21:11:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/18 06:03:29 by nathan           ###   ########.fr       */
+/*   Updated: 2020/08/26 11:23:44 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ Human::Human()
 	body[head] = new RectangularCuboid(0.6, 0.6, 0.6);
 	body[head]->setColor({1.0f, 0.0f, 1.0f});
 	body[head]->setParent(body[torso]);
-	body[head]->setAnchor({0, 1, 0});
+	body[head]->setPos({0, 1, 0});
 	body[head]->setSelfAnchor({0, -1, 0});
 
 
@@ -31,49 +31,49 @@ Human::Human()
 	body[rightArm]->setRot({0, 0, -90});
 	body[rightArm]->setSelfAnchor({1, 1, 0});
 	body[rightArm]->setParent(body[torso]);
-	body[rightArm]->setAnchor({-1, 0.8f, 0});
+	body[rightArm]->setPos({-1, 0.8f, 0});
 
 	body[rightForeArm] = new RectangularCuboid(0.2, 1, 0.2);
 	body[rightForeArm]->setColor({0.0f, 0.2f, 0.7f});
 	body[rightForeArm]->setSelfAnchor({0, 1, 0});
 	body[rightForeArm]->setParent(body[rightArm]);
-	body[rightForeArm]->setAnchor({0, -1, 0});
+	body[rightForeArm]->setPos({0, -1, 0});
 
 	body[leftArm] = new RectangularCuboid(0.2, 1, 0.2);
 	body[leftArm]->setColor({0.0f, 0.0f, 1.0f});
 	body[leftArm]->setSelfAnchor({-1, 1, 0});
 	body[leftArm]->setParent(body[torso]);
-	body[leftArm]->setAnchor({1, 0.8f, 0});
+	body[leftArm]->setPos({1, 0.8f, 0});
 
 	body[leftForeArm] = new RectangularCuboid(0.2, 1, 0.2);
 	body[leftForeArm]->setColor({0.0f, 0.2f, 0.7f});
 	body[leftForeArm]->setSelfAnchor({0, 1, 0});
 	body[leftForeArm]->setParent(body[leftArm]);
-	body[leftForeArm]->setAnchor({0, -1, 0});
+	body[leftForeArm]->setPos({0, -1, 0});
 
 	body[leftUpLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
 	body[leftUpLeg]->setColor({0.0f, 0.0f, 0.4f});
 	body[leftUpLeg]->setParent(body[torso]);
 	body[leftUpLeg]->setSelfAnchor({0, 1, 0});
-	body[leftUpLeg]->setAnchor({0.4, -1, 0});
+	body[leftUpLeg]->setPos({0.4, -1, 0});
 
 	body[leftLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
 	body[leftLeg]->setColor({0.4f, 0.0f, 0.4f});
 	body[leftLeg]->setParent(body[leftUpLeg]);
 	body[leftLeg]->setSelfAnchor({0, 1, 0});
-	body[leftLeg]->setAnchor({0, -1, 0});
+	body[leftLeg]->setPos({0, -1, 0});
 
 	body[rightUpLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
 	body[rightUpLeg]->setColor({0.0f, 0.0f, 0.4f});
 	body[rightUpLeg]->setParent(body[torso]);
 	body[rightUpLeg]->setSelfAnchor({0, 1, 0});
-	body[rightUpLeg]->setAnchor({-0.4, -1, 0});
+	body[rightUpLeg]->setPos({-0.4, -1, 0});
 
 	body[rightLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
 	body[rightLeg]->setColor({0.4f, 0.0f, 0.4f});
 	body[rightLeg]->setParent(body[rightUpLeg]);
 	body[rightLeg]->setSelfAnchor({0, 1, 0});
-	body[rightLeg]->setAnchor({0, -1, 0});
+	body[rightLeg]->setPos({0, -1, 0});
 }
 
 Human::~Human()
