@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Loop.hpp                                           :+:      :+:    :+:   */
+/*   Camera.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/24 15:40:30 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:27:10 by nathan           ###   ########.fr       */
+/*   Created: 2020/09/02 01:10:32 by nathan            #+#    #+#             */
+/*   Updated: 2020/09/02 01:17:33 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef LOOP_CLASS_H
-# define LOOP_CLASS_H
+#ifndef CAMERA_CLASS_H
+# define CAMERA_CLASS_H
+#include "Matrix.hpp"
+#include "Vec3.hpp"
 
-#include <vector>
-#include "World.hpp"
-
-class Loop {
+class Camera {
 public:
-	static void loop();
-	static void addObject(Object* newobj);
-	static void setWorld(World* newWorld) {world = newWorld;};
+	Camera(void);
+	Camera(float x, float y, float z);
+	Camera(Vec3 translation);
+	~Camera(void) {};
+	Matrix getMatrix();
 private:
-	static void processInput();
-	static bool shouldStop;
-	static double frameTime;
-	const static double refreshingRate;
-	static std::vector<Object*> objects;
-	static World* world;
+	Matrix view;
+	Vec3 translation;
 };
 
 #endif

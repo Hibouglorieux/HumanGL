@@ -8,8 +8,11 @@ FILES = main.cpp \
 		RectangularCuboid.cpp \
 		Human.cpp \
 		Loop.cpp \
+		World.cpp \
+		Camera.cpp \
 		Matrix.cpp \
 		Vec3.cpp \
+		bvhParser.cpp \
 		Window.cpp
 
 OBJ = $(addprefix obj/,$(FILES:.cpp=.o))

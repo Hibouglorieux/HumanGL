@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 15:40:25 by nathan            #+#    #+#             */
-/*   Updated: 2020/05/24 17:57:54 by nathan           ###   ########.fr       */
+/*   Updated: 2020/09/02 01:30:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 bool Loop::shouldStop = false;
 double Loop::frameTime = 0.0f;
 const double Loop::refreshingRate = 1.0 / 60.0;
+std::vector<Object*> Loop::objects = {};
+World* Loop::world = nullptr;
 
 #define SEC_TO_MICROSEC 1000000
 
@@ -32,7 +34,8 @@ void Loop::loop()
 
 		//update(frameTime);
 
-		//render();
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		world->render();
 
 		glfwSwapBuffers(Window::getWindow());
 

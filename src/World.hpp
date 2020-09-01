@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Loop.hpp                                           :+:      :+:    :+:   */
+/*   World.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/24 15:40:30 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:27:10 by nathan           ###   ########.fr       */
+/*   Created: 2020/07/21 18:11:54 by nathan            #+#    #+#             */
+/*   Updated: 2020/09/02 01:25:22 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#ifndef LOOP_CLASS_H
-# define LOOP_CLASS_H
+#ifndef WORLD_CLASS_H
+# define WORLD_CLASS_H
 
-#include <vector>
-#include "World.hpp"
+#include "Object.hpp"
+#include "Camera.hpp"
 
-class Loop {
+class World {
 public:
-	static void loop();
-	static void addObject(Object* newobj);
-	static void setWorld(World* newWorld) {world = newWorld;};
+	World( void );
+	virtual ~World( void );
+	void render( void );
+	void addObject(Object* newobj);
+	std::vector<Object*>& getObjects();
+	void setCamera(Camera newCamera);
+	Camera& getCamera();
 private:
-	static void processInput();
-	static bool shouldStop;
-	static double frameTime;
-	const static double refreshingRate;
-	static std::vector<Object*> objects;
-	static World* world;
+	Camera camera;
+	std::vector<Object*> objects;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 01:52:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/26 11:24:09 by nathan           ###   ########.fr       */
+/*   Updated: 2020/09/02 01:28:21 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 #include "Window.hpp"
 #include "Human.hpp"
 #include "Loop.hpp"
+#include "World.hpp"
 #include "Matrix.hpp"
+#include "bvhParser.hpp"
 
 using namespace std;
 
@@ -32,7 +34,7 @@ int		main( void )
 	// need to set gl parameters
     glEnable(GL_DEPTH_TEST);
 
-    Matrix viewMat = Matrix::createTranslationMatrix(0, -2.0f, -20);
+    Matrix viewMat = Matrix::createTranslationMatrix(0, -2.0f, -10);
 
 	/*
 	Human human;
@@ -45,6 +47,7 @@ int		main( void )
 	*/
 
 
+	/*
 	RectangularCuboid base(3, 3, 3);
 	RectangularCuboid mid(0.5, 2, 0.5);
 	RectangularCuboid arm(0.5, 2, 0.5);
@@ -67,12 +70,16 @@ int		main( void )
 	arm.setColor({1.0, 0, 0});
 
 
-	// TODO move to loop
-    // draw
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	*/
 
-	Human human;
-	human.draw(viewMat);
+	Camera camera;
+	World* world = new World();
+	Human* human = new Human();
+
+	world->setCamera(camera);
+	world->addObject(human);
+	Loop::setWorld(world);
+
 	//base.draw(viewMat);
 	//mid.draw(viewMat);
 	//arm.draw(viewMat);
