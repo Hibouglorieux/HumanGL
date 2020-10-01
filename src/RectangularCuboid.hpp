@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:07 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:01:11 by nathan           ###   ########.fr       */
+/*   Updated: 2020/09/02 12:51:07 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ public:
 	void setScale(float x, float y, float z) {setScale({x, y, z});}
 	void setSelfAnchor(Vec3 newSelfAnchor) {selfAnchor = newSelfAnchor; shouldUpdateMats = true;}
 	void pouet(){transMat.print();}
+	void setInitialRot(Vec3 newInitialRot){initialRot = newInitialRot;}
 	Vec3 getRelativePos(Vec3 anchor);
 
 	bool debug;
@@ -56,6 +57,7 @@ private:
 	Matrix transMat, rotMat, scaleMat;// is also the order for matrix mult
 	Vec3 pos;
 	Vec3 rot;
+	Vec3 initialRot;
 	Vec3 scale;
 	Vec3 selfAnchor;//where is the joint on itself
     Shader shader;

@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:11:54 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:25:22 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/01 03:06:04 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 #include "Object.hpp"
 #include "Camera.hpp"
+#include "AnimationHandler.hpp"
+#include "Human.hpp"
 
 class World {
 public:
@@ -25,8 +27,13 @@ public:
 	void addObject(Object* newobj);
 	std::vector<Object*>& getObjects();
 	void setCamera(Camera newCamera);
+	void playAnimation(bvhData animation);
+	void cancelAnimation();
+	void playNextAnim();
+	void playPrevAnim();
 	Camera& getCamera();
 private:
+	int currentAnimation;
 	Camera camera;
 	std::vector<Object*> objects;
 };

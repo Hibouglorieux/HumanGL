@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:12:34 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/18 05:44:42 by nathan           ###   ########.fr       */
+/*   Updated: 2020/09/03 22:59:42 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,19 @@ public:
 	~Vec3(){}
 
 	float getLength() const;
+	Vec3 getAngle() const;
+	Vec3 getNormalized() const;
 	std::string toString() const;
 	void print() const;
 	
 	Vec3 operator+( const Vec3& rhs ) const;
 	Vec3 operator+=( const Vec3& rhs);
 	Vec3 operator-( const Vec3& rhs ) const;
+	Vec3 operator-=( const Vec3& rhs);
 	Vec3 operator*( const float scale ) const;
 	Vec3 operator*( const Vec3& rhs ) const;
+	bool operator==( const Vec3& rhs ) const;
+	bool operator!=( const Vec3& rhs ) const;
 	Vec3 operator-() const;
 	float at(const int i) const;
 	float& operator[]( const int i );

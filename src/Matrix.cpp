@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/17 22:03:35 by nathan           ###   ########.fr       */
+/*   Updated: 2020/09/03 22:53:50 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ void Matrix::print() const
 	std::cout << toString( data ) << std::endl;
 }
 
-Vec3 Matrix::vectorMult(const Vec3 vec)
+Vec3 Matrix::vectorMult(const Vec3 vec) const
 {
 	Vec3 newVec;
 	for (int i = 0; i < 3; 	i++)	
@@ -204,6 +204,11 @@ Matrix Matrix::operator*( const Matrix& rhs ) const
 		firstRow++;
 	}
 	return std::move( newMatrix );
+}
+
+Vec3 Matrix::operator*( const Vec3& rhs ) const
+{
+	return this->vectorMult(rhs);
 }
 
 Matrix Matrix::operator*=( const Matrix& rhs )

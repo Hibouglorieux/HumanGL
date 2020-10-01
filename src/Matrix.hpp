@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/17 21:56:39 by nathan           ###   ########.fr       */
+/*   Updated: 2020/09/03 22:53:25 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,13 @@ public:
 	static Matrix createScaleMatrix( float x, float y, float z );
 	static Matrix createScaleMatrix(Vec3 vec) {return createScaleMatrix(vec.x, vec.y, vec.z);}
 	static Matrix createRotationMatrix( RotationDirection dir, float angle ); //takes angle as degree
+	Matrix test() {Matrix cpy = *this; cpy.data[3][3] = -1; return cpy;}//TODO TODEL
 
-	Vec3 vectorMult(const Vec3 vec);
+	Vec3 vectorMult(const Vec3 vec) const;
 	~Matrix( void );
 	GLfloat* exportForGL(  );
 	Matrix operator*( const Matrix& rhs ) const;
+	Vec3 operator*( const Vec3& rhs) const;
 	Matrix operator*=( const Matrix& rhs );
 	void print() const;
 	std::string toString( std::vector<std::vector<float>> dataParam ) const;

@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 01:52:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:28:21 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/01 03:19:40 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,10 @@ int		main( void )
 	world->addObject(human);
 	Loop::setWorld(world);
 
+//	bvhParser::loadFile("blend-export.bvh").test();
+	//human->setScale(8);
+	//human2->setScale(8);
+
 	//base.draw(viewMat);
 	//mid.draw(viewMat);
 	//arm.draw(viewMat);
@@ -91,6 +95,11 @@ int		main( void )
 	delete human2;
 	human3.draw(viewMat);
 	*/
+	RectangularCuboid test(1000, 0.1, 0.1);
+	RectangularCuboid test2;
+	test2.setPos(0, 0, 2);
+	world->addObject(&test);
+	world->addObject(&test2);
 	Loop::loop();
 
 	return 1;

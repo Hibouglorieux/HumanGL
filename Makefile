@@ -13,6 +13,7 @@ FILES = main.cpp \
 		Matrix.cpp \
 		Vec3.cpp \
 		bvhParser.cpp \
+		AnimationHandler.cpp \
 		Window.cpp
 
 OBJ = $(addprefix obj/,$(FILES:.cpp=.o))

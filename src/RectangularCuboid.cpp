@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:01 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:01:12 by nathan           ###   ########.fr       */
+/*   Updated: 2020/09/02 13:34:21 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ RectangularCuboid::RectangularCuboid(float width, float height, float depth)
 	scale = Vec3(width, height, depth);
 	rot = Vec3(0, 0, 0);
 	pos = Vec3(0, 0, 0);
+	initialRot = Vec3(0, 0, 0);
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
   
@@ -160,6 +161,7 @@ Matrix RectangularCuboid::getParentMatrix()
 	return dynamic_cast<RectangularCuboid*>(parent)->myMat;
 }
 
+/*
 void RectangularCuboid::updateMatrixes()
 {
 	Matrix parentMat;
@@ -176,12 +178,12 @@ void RectangularCuboid::updateMatrixes()
 	}
 	myMat = parentMat * Matrix::createTranslationMatrix(pos * parentScale * 0.5);
 	rotMat = Matrix();
-	if (rot.y != 0)
-		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Y, rot.y);
-	if (rot.x != 0)
-		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::X, rot.x);
-	if (rot.z != 0)
-		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Z, rot.z);
+	if (rot.y + initialRot.y != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Y, rot.y + initialRot.y );
+	if (rot.x + initialRot.x != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::X, rot.x + initialRot.x );
+	if (rot.z + initialRot.z != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Z, rot.z + initialRot.z );
 	myMat *= rotMat;// need this
 	Matrix mySelfAnchor = Matrix::createTranslationMatrix(selfAnchor * scale * -0.5);
 	myMat *= mySelfAnchor;
@@ -190,9 +192,9 @@ void RectangularCuboid::updateMatrixes()
 
 	shouldUpdateMats = false;
 }
+*/
 
 //Debug code
-/*
 void RectangularCuboid::updateMatrixes()
 {
 	Matrix parentMat;
@@ -219,12 +221,12 @@ void RectangularCuboid::updateMatrixes()
 		myMat.print();
 	}
 	rotMat = Matrix();
-	if (rot.y != 0)
-		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Y, rot.y);
-	if (rot.x != 0)
-		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::X, rot.x);
-	if (rot.z != 0)
-		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Z, rot.z);
+	if (rot.x + initialRot.x != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::X, rot.x + initialRot.x );
+	if (rot.y + initialRot.y != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Y, rot.y + initialRot.y );
+	if (rot.z + initialRot.z != 0)
+		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Z, rot.z + initialRot.z );
 	myMat *= rotMat;// need this
 	if (debug)
 	{
@@ -250,4 +252,3 @@ void RectangularCuboid::updateMatrixes()
 
 	shouldUpdateMats = false;
 }
-*/

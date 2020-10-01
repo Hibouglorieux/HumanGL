@@ -6,51 +6,52 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 21:11:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:25:57 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/01 03:18:00 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Human.hpp"
+
+const int Human::nbOfLimbs = 10;
 
 Human::Human()
 {
 	std::cout << "human is created" << std::endl;
 	body.resize(rightLeg + 1);
 
-	body[chest] = new RectangularCuboid(1, 2, 0.8);
+	body[chest] = new RectangularCuboid(0.7, 2, 0.4);
 	body[chest]->setColor({1.0f, 0.0f, 0.0f});
+	body[chest]->setSelfAnchor({0, -1, 0});
 
-	body[head] = new RectangularCuboid(0.6, 0.6, 0.6);
+	body[head] = new RectangularCuboid(0.7, 0.7, 0.7);
 	body[head]->setColor({1.0f, 0.0f, 1.0f});
 	body[head]->setParent(body[chest]);
 	body[head]->setPos({0, 1, 0});
 	body[head]->setSelfAnchor({0, -1, 0});
 
-
-	body[rightArm] = new RectangularCuboid(0.2, 1, 0.2);
+	body[rightArm] = new RectangularCuboid(1.0, 0.2, 0.2);
 	body[rightArm]->setColor({0.0f, 0.0f, 1.0f});
-	body[rightArm]->setRot({0, 0, -90});
-	body[rightArm]->setSelfAnchor({1, 1, 0});
+	body[rightArm]->setSelfAnchor({1, 0, 0});
 	body[rightArm]->setParent(body[chest]);
 	body[rightArm]->setPos({-1, 0.8f, 0});
 
-	body[rightForeArm] = new RectangularCuboid(0.2, 1, 0.2);
+	body[rightForeArm] = new RectangularCuboid(1.0, 0.2, 0.2);
 	body[rightForeArm]->setColor({0.0f, 0.2f, 0.7f});
-	body[rightForeArm]->setSelfAnchor({0, 1, 0});
+	body[rightForeArm]->setSelfAnchor({1, 0, 0});
 	body[rightForeArm]->setParent(body[rightArm]);
-	body[rightForeArm]->setPos({0, -1, 0});
+	body[rightForeArm]->setPos({-1, 0, 0});
 
-	body[leftArm] = new RectangularCuboid(0.2, 1, 0.2);
+	body[leftArm] = new RectangularCuboid(1.0, 0.2, 0.2);
 	body[leftArm]->setColor({0.0f, 0.0f, 1.0f});
-	body[leftArm]->setSelfAnchor({-1, 1, 0});
+	body[leftArm]->setSelfAnchor({-1, 0, 0});
 	body[leftArm]->setParent(body[chest]);
 	body[leftArm]->setPos({1, 0.8f, 0});
 
-	body[leftForeArm] = new RectangularCuboid(0.2, 1, 0.2);
+	body[leftForeArm] = new RectangularCuboid(1.0, 0.2, 0.2);
 	body[leftForeArm]->setColor({0.0f, 0.2f, 0.7f});
-	body[leftForeArm]->setSelfAnchor({0, 1, 0});
+	body[leftForeArm]->setSelfAnchor({-1, 0, 0});
 	body[leftForeArm]->setParent(body[leftArm]);
-	body[leftForeArm]->setPos({0, -1, 0});
+	body[leftForeArm]->setPos({1, 0, 0});
 
 	body[leftUpLeg] = new RectangularCuboid(0.3, 1.2, 0.4);
 	body[leftUpLeg]->setColor({0.0f, 0.0f, 0.4f});
@@ -102,6 +103,53 @@ void Human::setScale(float x)
 
 void Human::draw(Matrix viewMat)
 {
+	if (animation.numberOfFrames > 0)
+	{
+		for (int limb = 1; limb < nbOfLimbs; limb++)
+		{
+			body[limb]->setRot(animation.data[frameCount][limb]);
+		}
+		body[chest]->setPos(animation.translationData[frameCount] + pos);
+		body[chest]->setRot(animation.data[frameCount][chest]);
+		frameCount++;
+		if (frameCount == animation.numberOfFrames)
+			frameCount = 0;
+	}
 	body[chest]->draw(viewMat);
 	body[chest]->drawChildren(viewMat);
+}
+
+void Human::setPos(float x, float y, float z)
+{
+	pos = Vec3(x, y, z);
+	body[chest]->setPos(pos);
+}
+
+void Human::setRot(float x, float y, float z)
+{
+	body[chest]->setInitialRot(Vec3(x, y, z));
+}
+
+void Human::playAnimation(bvhData newAnim)
+{
+	animation = newAnim;
+	frameCount = 0;
+}
+
+void Human::cancelAnimation()
+{
+	//resetHuman();
+	animation.numberOfFrames = 0;
+	animation.data.clear();
+	frameCount = 0;
+	for (int limb = 0; limb < nbOfLimbs; limb++)
+	{
+		body[limb]->setRot(Vec3::ZERO);
+	}
+	body[chest]->setPos(pos);
+}
+
+RectangularCuboid* Human::getBodyPart(Body bodyPart)
+{
+	return body[bodyPart];
 }

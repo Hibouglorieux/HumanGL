@@ -6,12 +6,13 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/26 16:12:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/08/18 05:45:19 by nathan           ###   ########.fr       */
+/*   Updated: 2020/09/03 23:01:17 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Vec3.hpp"
 #include <string>
+#include "Utilities.h"
 
 Vec3::Vec3( void )
 {
@@ -36,7 +37,26 @@ Vec3::Vec3( const Vec3& copy)
 
 float Vec3::getLength() const
 {
-	return sqrtf( x * x + y * y + z * z);
+	return sqrtf( x * x + y * y + z * z );
+}
+
+Vec3 Vec3::getAngle() const
+{
+	Vec3 angle;
+
+	angle.x = TO_DEGREE(atan2(sqrtf( y * y + z * z ), x));
+	angle.y = TO_DEGREE(atan2(sqrtf( z * z + x * x ), y));
+	angle.z = TO_DEGREE(atan2(sqrtf( x * x + y * y ), z));
+	return angle;
+}
+
+Vec3 Vec3::getNormalized() const 
+{
+	float length = this->getLength();	
+
+	if (length == 0)
+		return Vec3::ZERO;
+	return Vec3(x / length, y / length, z / length);
 }
 
 std::string Vec3::toString() const
@@ -71,6 +91,12 @@ Vec3 Vec3::operator+=( const Vec3& rhs)
 	return *this;
 }
 
+Vec3 Vec3::operator-=( const Vec3& rhs)
+{
+	*this = *this - rhs;
+	return *this;
+}
+
 Vec3 Vec3::operator-(const Vec3& rhs) const
 {
 	Vec3 newVector( x - rhs.x, y - rhs.y, z - rhs.z );
@@ -89,6 +115,18 @@ Vec3 Vec3::operator*(const Vec3& rhs) const
 	return newVector;
 }
 
+bool Vec3::operator==(const Vec3& rhs) const
+{
+	if (this->x == rhs.x && this->y == rhs.y && this->z == rhs.z)
+		return true;
+	return false;
+}
+
+bool Vec3::operator!=(const Vec3& rhs) const
+{
+	return !(*this == rhs);
+}
+
 float Vec3::at(const int i) const
 {
 	if (i == 0) return x;
@@ -98,6 +136,7 @@ float Vec3::at(const int i) const
 	std::cerr << err << std::endl;
 	throw err;
 }
+
 float& Vec3::operator[]( const int i )
 {
 	if (i == 0) return x;

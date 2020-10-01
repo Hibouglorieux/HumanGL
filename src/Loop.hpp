@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 15:40:30 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:27:10 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/01 02:43:30 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 #include <vector>
 #include "World.hpp"
+#include "Window.hpp"
 
 class Loop {
 public:
@@ -23,9 +24,11 @@ public:
 	static void addObject(Object* newobj);
 	static void setWorld(World* newWorld) {world = newWorld;};
 private:
+	static void keyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 	static void processInput();
 	static bool shouldStop;
 	static double frameTime;
+	static double mouseX, mouseY;
 	const static double refreshingRate;
 	static std::vector<Object*> objects;
 	static World* world;
