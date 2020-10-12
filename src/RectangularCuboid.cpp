@@ -6,23 +6,40 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:01 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 13:34:21 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 11:37:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RectangularCuboid.hpp"
 
+bool RectangularCuboid::initialized = false;
+int RectangularCuboid::instanceCount = 0;
+GLuint RectangularCuboid::VAO = 0;
+GLuint RectangularCuboid::VBO = 0;
+
 RectangularCuboid::RectangularCuboid(float width, float height, float depth)
-	: shader("shaders/plaincolor.vert", "shaders/plaincolor.frag"), color({0.0f, 0.7f, 0.7f})
+	: shader("shaders/new.vert", "shaders/new.frag"), color({0.0f, 0.7f, 0.7f})
 {
+	instanceCount++;
 	scale = Vec3(width, height, depth);
 	rot = Vec3(0, 0, 0);
 	pos = Vec3(0, 0, 0);
 	initialRot = Vec3(0, 0, 0);
+	debug = false;
+	if (!initialized)
+	{
+		initialize();
+	}
+	shouldUpdateMats = true;
+}
+
+RectangularCuboid::RectangularCuboid( void ) : RectangularCuboid(1, 1, 1){}
+
+void RectangularCuboid::initialize()
+{
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
   
-	debug = false;
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
@@ -74,18 +91,20 @@ RectangularCuboid::RectangularCuboid(float width, float height, float depth)
     // vertex positions
     glEnableVertexAttribArray(0);	
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-
-    glBindVertexArray(0);
-	shouldUpdateMats = true;
+	glBindVertexArray(0);
+	initialized = true;
 }
-
-RectangularCuboid::RectangularCuboid( void ) : RectangularCuboid(1, 1, 1){}
 
 RectangularCuboid::~RectangularCuboid( void ) 
 {
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glInvalidateBufferData(VBO);
+	instanceCount--;
+	if (instanceCount == 0)
+	{
+		glBindVertexArray(VAO);
+		glBindBuffer(GL_ARRAY_BUFFER, VBO);
+		glInvalidateBufferData(VBO);
+		initialized = false;
+	}
 }
 
 void RectangularCuboid::setMat(Matrix newMat, int type)
@@ -111,12 +130,12 @@ void RectangularCuboid::draw(Matrix viewMat)
 	//Matrix precalcMat = projMat * viewMat * modelMat;
 	Matrix precalcMat = projMat * viewMat;
 	precalcMat *= modelMat;
-    glUseProgram(shader.ID);
-    glUniformMatrix4fv(glGetUniformLocation(shader.ID, "proj"), 1, GL_TRUE, projMat.exportForGL());
-    glUniformMatrix4fv(glGetUniformLocation(shader.ID, "view"), 1, GL_TRUE, viewMat.exportForGL());
-    glUniformMatrix4fv(glGetUniformLocation(shader.ID, "model"), 1, GL_TRUE, modelMat.exportForGL());
-    glUniformMatrix4fv(glGetUniformLocation(shader.ID, "precalcMat"), 1, GL_TRUE, precalcMat.exportForGL());
-    glUniform3fv(glGetUniformLocation(shader.ID, "myColor"), 1, &color.front());
+	shader.use();
+    glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "proj"), 1, GL_TRUE, projMat.exportForGL());
+    glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "view"), 1, GL_TRUE, viewMat.exportForGL());
+    glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "model"), 1, GL_TRUE, modelMat.exportForGL());
+    glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "precalcMat"), 1, GL_TRUE, precalcMat.exportForGL());
+    glUniform3fv(glGetUniformLocation(shader.getID(), "myColor"), 1, &color.front());
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }

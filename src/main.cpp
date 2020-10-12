@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 01:52:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 03:19:40 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 11:35:19 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,13 @@ int		main( void )
 	Camera camera;
 	World* world = new World();
 	Human* human = new Human();
+	RectangularCuboid* floor = new RectangularCuboid(1000, 0.1, 1000);
+	floor->setColor({0.8, 0.8, 0.8});
+	human->setPos(0, 4.9f, 0);
 
 	world->setCamera(camera);
 	world->addObject(human);
+	world->addObject(floor);
 	Loop::setWorld(world);
 
 //	bvhParser::loadFile("blend-export.bvh").test();
@@ -95,11 +99,6 @@ int		main( void )
 	delete human2;
 	human3.draw(viewMat);
 	*/
-	RectangularCuboid test(1000, 0.1, 0.1);
-	RectangularCuboid test2;
-	test2.setPos(0, 0, 2);
-	world->addObject(&test);
-	world->addObject(&test2);
 	Loop::loop();
 
 	return 1;

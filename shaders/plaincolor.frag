@@ -12,4 +12,5 @@ void main()
     float diffuse = max(dot(faceNormal, lightDir), 0.0);
     float ambient = 0.1f;
     FragColor = (ambient + diffuse) * vec4(myColor, 1.0);
+	FragColor = vec4(myColor, 1.0);
 }

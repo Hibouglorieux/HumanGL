@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:07 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 12:51:07 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 11:37:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ public:
 	RectangularCuboid(void); // TODO add copy constructor
 	virtual ~RectangularCuboid( void );
 	RectangularCuboid(float width, float height, float depth);
+	void initialize();
     void setMat(Matrix newMat, int type);
 	void setColor(std::array<float, 3> Color);
 	virtual void draw(Matrix viewMat) override;
@@ -51,8 +52,10 @@ public:
 	Vec3 getRot() const {return rot;}
 	Vec3 getScale() const {return scale;}
 private:
+	static bool initialized;
+	static int instanceCount;
 	void updateMatrixes();
-    GLuint VAO, VBO;//TODO change to static ?
+    static GLuint VAO, VBO;
     Matrix modelMat, myMat;
 	Matrix transMat, rotMat, scaleMat;// is also the order for matrix mult
 	Vec3 pos;

@@ -7,22 +7,31 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <map>
   
 
 class Shader
 {
 public:
-    unsigned int ID;
-  
     Shader(const char* vertexPath, const char* fragmentPath);
+	virtual ~Shader( void );
+	unsigned int getID() const;
+	void use() const;
     void setBool(const std::string &name, bool value) const;  
     void setInt(const std::string &name, int value) const;   
     void setFloat(const std::string &name, float value) const;
+	void printShaders( void ) const; // debug function;
 
 private:
-    //static glm::mat4 projMat;
+	struct shaderCommonData
+	{
+		unsigned int ID;
+		unsigned int nbOfInstance;
+	};
+	static std::map<std::string, shaderCommonData> createdShaders;
 
     void checkCompileErrors(unsigned int shader, std::string type);
+	const std::string stringID;
 };
   
 #endif

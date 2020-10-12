@@ -4,12 +4,22 @@
 //temporary matrix functions
 #include <string.h>
 #include <math.h>
+#include <algorithm>
 using namespace std;
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath) {
+std::map<std::string, Shader::shaderCommonData> Shader::createdShaders = {};
+
+Shader::Shader(const char* vertexPath, const char* fragmentPath) : stringID(std::string(vertexPath) + std::string(fragmentPath)) {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
     std::string fragmentCode;
+	if (createdShaders.find(stringID) == createdShaders.end())
+		createdShaders.insert(std::pair<std::string, shaderCommonData>(stringID, {0, 1}));
+	else
+	{
+		createdShaders[stringID].nbOfInstance++;
+		return;
+	}
     std::ifstream vShaderFile;
     std::ifstream fShaderFile;
     // ensure ifstream objects can throw exceptions:
@@ -50,32 +60,57 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) {
     glCompileShader(fragment);
     checkCompileErrors(fragment, "FRAGMENT");
     // shader Program
-    ID = glCreateProgram();
-    glAttachShader(ID, vertex);
-    glAttachShader(ID, fragment);
-    glLinkProgram(ID);
-    checkCompileErrors(ID, "PROGRAM");
+    createdShaders[stringID].ID = glCreateProgram();
+    glAttachShader(getID(), vertex);
+    glAttachShader(getID(), fragment);
+    glLinkProgram(getID());
+    checkCompileErrors(getID(), "PROGRAM");
     // delete the shaders as they're linked into our program now and no longer necessary
     glDeleteShader(vertex);
     glDeleteShader(fragment);
-    // set projection matrix
-    glUseProgram(ID);
+}
+
+Shader::~Shader( void ) 
+{
+	createdShaders[stringID].nbOfInstance--;
+	if (createdShaders[stringID].nbOfInstance == 0)
+	{
+		glDeleteProgram(getID());
+		createdShaders.erase(stringID);
+	}
+}
+
+void Shader::printShaders( void ) const
+{
+	std::cout << "There are currently " << createdShaders.size() << " shaders:" << std::endl;
+	for (auto it : createdShaders)
+	std::cout << "About Shader " << it.first << ": has ID: " << it.second.ID << " with " << it.second.nbOfInstance << " instances." << std::endl;
+}
+
+unsigned int Shader::getID() const
+{
+	return createdShaders[stringID].ID;
+}
+
+void Shader::use() const
+{
+    glUseProgram(getID());
 }
 // utility uniform functions
 // ------------------------------------------------------------------------
 void Shader::setBool(const std::string &name, bool value) const
 {
-    glUniform1i(glGetUniformLocation(ID, name.c_str()), (int)value); 
+    glUniform1i(glGetUniformLocation(getID(), name.c_str()), (int)value); 
 }
 // ------------------------------------------------------------------------
 void Shader::setInt(const std::string &name, int value) const
 { 
-    glUniform1i(glGetUniformLocation(ID, name.c_str()), value); 
+    glUniform1i(glGetUniformLocation(getID(), name.c_str()), value); 
 }
 // ------------------------------------------------------------------------
 void Shader::setFloat(const std::string &name, float value) const
 { 
-    glUniform1f(glGetUniformLocation(ID, name.c_str()), value); 
+    glUniform1f(glGetUniformLocation(getID(), name.c_str()), value); 
 }
 
 // utility function for checking shader compilation/linking errors.
