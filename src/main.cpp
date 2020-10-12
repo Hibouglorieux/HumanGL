@@ -6,7 +6,7 @@
 /*   By: nathan <nallani@student.s19.be>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 01:52:59 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 11:35:19 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 11:56:36 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ int		main( void )
 	World* world = new World();
 	Human* human = new Human();
 	RectangularCuboid* floor = new RectangularCuboid(1000, 0.1, 1000);
-	floor->setColor({0.8, 0.8, 0.8});
+	floor->setColor({0.6, 0.7, 0.6});
 	human->setPos(0, 4.9f, 0);
+	floor->setShader(new Shader("floor.vert", "floor.frag"));
 
 	world->setCamera(camera);
 	world->addObject(human);

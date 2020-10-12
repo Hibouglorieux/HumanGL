@@ -29,7 +29,9 @@ endif
 
 # 14 is fine for now, might need to upgrade ?
 # -g flag for debug
-CXXFLAGS = -g -std=gnu++14 -Wall -Wextra
+CXXFLAGS = -std=gnu++14 -Wall -Wextra
+#CXXFLAGS += -g #GNU
+#CXXFLAGS += -fno-omit-frame-pointer #linux profiler
 CXXFLAGS += -Wno-deprecated-declarations # hide usleep deprecated warning
 
 all: $(NAME)

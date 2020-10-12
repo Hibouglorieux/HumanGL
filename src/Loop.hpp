@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 15:40:30 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 02:43:30 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 13:39:52 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ private:
 	static void processInput();
 	static bool shouldStop;
 	static double frameTime;
+	static double fpsRefreshTime;
+	static unsigned char frameCount;
 	static double mouseX, mouseY;
 	const static double refreshingRate;
 	static std::vector<Object*> objects;

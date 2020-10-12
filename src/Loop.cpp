@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 15:40:25 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 03:07:16 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 14:10:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <unistd.h>
 #include "Camera.hpp"
 #include "AnimationHandler.hpp"
+#include <iomanip>
 
 bool Loop::shouldStop = false;
 double Loop::frameTime = 0.0f;
@@ -23,9 +24,12 @@ std::vector<Object*> Loop::objects = {};
 World* Loop::world = nullptr;
 double Loop::mouseX = 0.0;
 double Loop::mouseY = 0.0;
+double Loop::fpsRefreshTime = 0.0;
+unsigned char Loop::frameCount = 0;
 
 #define SEC_TO_MICROSEC 1000000
 #define CAMERA_MOUVEMENT_SPEED 0.3f
+#define REFRESH_FPS_RATE 0.5
 
 
 void Loop::loop()
@@ -36,6 +40,7 @@ void Loop::loop()
 	while (!glfwWindowShouldClose(Window::getWindow()))
 	{
 		double currentTimer = glfwGetTime();
+		frameCount++;
 		processInput();
 
 		//update(frameTime);
@@ -49,6 +54,15 @@ void Loop::loop()
 		if (frameTime < refreshingRate)
 		{
 			usleep((refreshingRate - frameTime) * SEC_TO_MICROSEC);
+		}
+		if (fpsRefreshTime + 0.5 > currentTimer)
+		{
+			std::stringstream ss;
+			double fps = (float)frameCount / (currentTimer - fpsRefreshTime);
+			ss << std::fixed << std::setprecision(1) << fps;
+			glfwSetWindowTitle(Window::getWindow(), std::string(std::string("Humangl ") + std::to_string(fps)).c_str());
+			frameCount = 0;
+			fpsRefreshTime = currentTimer;
 		}
 	}
 }
@@ -94,4 +108,8 @@ void Loop::keyCallback(GLFWwindow* window, int key, int scancode, int action, in
 		world->playPrevAnim();
 	if (key == GLFW_KEY_1 && action == GLFW_PRESS)
 		world->cancelAnimation();
+	if (key == GLFW_KEY_UP && action == GLFW_PRESS)
+		world->addHuman();
+	if (key == GLFW_KEY_BACKSPACE && action == GLFW_PRESS)
+		world->clearObject("tmpHuman");
 }

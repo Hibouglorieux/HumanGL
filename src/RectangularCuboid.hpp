@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:07 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 11:37:12 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 11:48:46 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ public:
 	Matrix getModelMat();
 	Matrix getParentMatrix();
 	virtual void onNewParent() override; //parent should already be set when this method is called
+
+	void setShader(Shader* newShader);
 
 	void setPos(Vec3 newPos);
 	void setRot(Vec3 newRot);
@@ -63,7 +65,7 @@ private:
 	Vec3 initialRot;
 	Vec3 scale;
 	Vec3 selfAnchor;//where is the joint on itself
-    Shader shader;
+    Shader* shader;
     std::array<float, 3> color;
 	bool shouldUpdateMats;
 };

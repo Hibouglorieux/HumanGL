@@ -6,13 +6,15 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 00:27:45 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 02:10:01 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 12:49:06 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #ifndef ANIMATIONHANDLER_CLASS_H
 # define ANIMATIONHANDLER_CLASS_H
+# define BREAKDANCE 5
+# define CLIMBING 10
 
 #include "bvhParser.hpp"
 

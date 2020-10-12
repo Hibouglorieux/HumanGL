@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 19:05:09 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:01:54 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 14:08:33 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@ public:
 	void addChild(Object* newchild);
 	void removeChild(Object* child);
 	void setParent(Object* parent);
+	void setID(std::string newID);
+	std::string getID() const;
 	virtual void onNewParent() {};
 	Object* getParent();
 	std::vector<Object*> getChildren() {return children;}
 protected:
+	std::string ID;
 	std::vector<Object*> children;
 	Object* parent;
 	static Matrix projMat;

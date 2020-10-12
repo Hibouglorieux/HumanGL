@@ -28,8 +28,8 @@ Shader::Shader(const char* vertexPath, const char* fragmentPath) : stringID(std:
     try 
     {
         // open files
-        vShaderFile.open(vertexPath);
-        fShaderFile.open(fragmentPath);
+        vShaderFile.open(std::string("shaders/") + vertexPath);
+        fShaderFile.open(std::string("shaders/") + fragmentPath);
         std::stringstream vShaderStream, fShaderStream;
         // read file's buffer contents into streams
         vShaderStream << vShaderFile.rdbuf();
@@ -80,7 +80,7 @@ Shader::~Shader( void )
 	}
 }
 
-void Shader::printShaders( void ) const
+void Shader::printShaders( void )
 {
 	std::cout << "There are currently " << createdShaders.size() << " shaders:" << std::endl;
 	for (auto it : createdShaders)

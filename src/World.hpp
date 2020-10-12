@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:11:54 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 03:06:04 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 14:33:08 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,13 @@ public:
 	void cancelAnimation();
 	void playNextAnim();
 	void playPrevAnim();
+	void addHuman();
+	void clearObject(std::string ID);
 	Camera& getCamera();
 private:
+	static int i;
+	void onEnterAnim();
+	void onLeaveAnim();
 	int currentAnimation;
 	Camera camera;
 	std::vector<Object*> objects;

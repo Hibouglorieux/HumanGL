@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 21:11:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 03:18:00 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 12:54:49 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,11 @@ void Human::setPos(float x, float y, float z)
 {
 	pos = Vec3(x, y, z);
 	body[chest]->setPos(pos);
+}
+
+Vec3 Human::getPos() const
+{
+	return this->pos;
 }
 
 void Human::setRot(float x, float y, float z)

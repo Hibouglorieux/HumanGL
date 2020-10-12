@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 19:05:07 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/02 01:00:37 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 14:09:05 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,14 @@ void Object::setParent(Object* parent)
 Object* Object::getParent()
 {
 	return (this->parent);
+}
+
+void Object::setID(std::string newID)
+{
+	ID = newID;
+}
+
+std::string Object::getID() const
+{
+	return ID;
 }

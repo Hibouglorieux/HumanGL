@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/03 22:53:50 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 13:26:12 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,18 @@ Matrix::Matrix( void )
 Matrix::Matrix( std::vector<std::vector<float>> dataParam )
 {
 	size_t i = 0;
+	if (dataParam.size() != 4)
+	{
+		std::cerr << "Error: wrong size of matrix given as constructor (it is not 4x4)\n" + toString(dataParam) << std::endl;
+		abort();
+	}
 	while ( i < dataParam.size() )
 	{
-		M_Assert( dataParam[i].size() == 4, ( "Error: wrong size of matrix given as constructor (it is not 4x4)\n" + toString(dataParam) ).c_str() );
+		if (dataParam[i].size() != 4)
+		{
+			std::cerr << "Error: wrong size of matrix given as constructor (it is not 4x4)\n" + toString(dataParam) << std::endl;
+			abort();
+		}
 		i++;
 	}
 	data = dataParam;
@@ -117,6 +126,7 @@ Matrix Matrix::createRotationMatrix( RotationDirection dir, float angle )
 
 std::string Matrix::toString( std::vector<std::vector<float>> dataParam ) const
 {
+	std::cout << "WTF" << std::endl;
 	std::stringstream ss;
 	ss.precision(2); // print only 2 first decimals
 	ss << std::fixed; // put precision for 0.00 too

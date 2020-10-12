@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/01 00:27:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 03:25:09 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 12:54:58 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ const std::vector<bvhData> AnimationHandler::animations =
 {
 	bvhParser::loadFile("Animations/walk.bvh"),
 	bvhParser::loadFile("Animations/jump.bvh"),
+	bvhParser::loadFile("Animations/dance.bvh"),
 	bvhParser::loadFile("Animations/robot-dance.bvh"),
 	bvhParser::loadFile("Animations/robot-dance2.bvh"),
-	bvhParser::loadFile("Animations/dance.bvh"),
 	bvhParser::loadFile("Animations/breakdance.bvh"),
 	bvhParser::loadFile("Animations/dying.bvh"),
 	bvhParser::loadFile("Animations/baseball.bvh"),

@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:01 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 11:37:06 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 11:53:03 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ GLuint RectangularCuboid::VAO = 0;
 GLuint RectangularCuboid::VBO = 0;
 
 RectangularCuboid::RectangularCuboid(float width, float height, float depth)
-	: shader("shaders/new.vert", "shaders/new.frag"), color({0.0f, 0.7f, 0.7f})
+	: shader(new Shader("new.vert", "new.frag")), color({0.0f, 0.7f, 0.7f})
 {
 	instanceCount++;
 	scale = Vec3(width, height, depth);
@@ -105,6 +105,7 @@ RectangularCuboid::~RectangularCuboid( void )
 		glInvalidateBufferData(VBO);
 		initialized = false;
 	}
+	delete shader;
 }
 
 void RectangularCuboid::setMat(Matrix newMat, int type)
@@ -130,12 +131,12 @@ void RectangularCuboid::draw(Matrix viewMat)
 	//Matrix precalcMat = projMat * viewMat * modelMat;
 	Matrix precalcMat = projMat * viewMat;
 	precalcMat *= modelMat;
-	shader.use();
-    glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "proj"), 1, GL_TRUE, projMat.exportForGL());
-    glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "view"), 1, GL_TRUE, viewMat.exportForGL());
-    glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "model"), 1, GL_TRUE, modelMat.exportForGL());
-    glUniformMatrix4fv(glGetUniformLocation(shader.getID(), "precalcMat"), 1, GL_TRUE, precalcMat.exportForGL());
-    glUniform3fv(glGetUniformLocation(shader.getID(), "myColor"), 1, &color.front());
+	shader->use();
+    glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "proj"), 1, GL_TRUE, projMat.exportForGL());
+    glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "view"), 1, GL_TRUE, viewMat.exportForGL());
+    glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "model"), 1, GL_TRUE, modelMat.exportForGL());
+    glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "precalcMat"), 1, GL_TRUE, precalcMat.exportForGL());
+    glUniform3fv(glGetUniformLocation(shader->getID(), "myColor"), 1, &color.front());
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 }
@@ -148,6 +149,12 @@ Matrix RectangularCuboid::getModelMat()
 void RectangularCuboid::onNewParent()
 {
 	shouldUpdateMats = true;		
+}
+
+void RectangularCuboid::setShader(Shader* newShader)
+{
+	delete shader;
+	shader = newShader;
 }
 
 void RectangularCuboid::setPos(Vec3 newPos)
