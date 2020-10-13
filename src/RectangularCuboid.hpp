@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:07 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 11:48:46 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 15:35:56 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ public:
 	void initialize();
     void setMat(Matrix newMat, int type);
 	void setColor(std::array<float, 3> Color);
-	virtual void draw(Matrix viewMat) override;
+	virtual void draw(Matrix* viewMat) override;
 	Matrix getModelMat();
 	Matrix getParentMatrix();
 	virtual void onNewParent() override; //parent should already be set when this method is called

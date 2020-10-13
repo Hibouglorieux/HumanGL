@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 21:11:34 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 12:54:43 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 15:35:14 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ class Human : public Object{
 public:
 	static const int nbOfLimbs;
 	Human(void);
-	virtual void draw(Matrix viewMat) override;
+	virtual void draw(Matrix* viewMat) override;
 	void setPos(float x, float y, float z);
 	void setPos(Vec3 pos) {setPos(pos.x, pos.y, pos.z);};
 	Vec3 getPos() const;

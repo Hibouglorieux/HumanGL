@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 21:11:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 12:54:49 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 15:35:18 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void Human::setScale(float x)
 	body[rightLeg]->setScale(body[rightLeg]->getScale() * x);
 }
 
-void Human::draw(Matrix viewMat)
+void Human::draw(Matrix* viewMat)
 {
 	if (animation.numberOfFrames > 0)
 	{

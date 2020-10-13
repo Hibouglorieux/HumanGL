@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:11:30 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 14:43:50 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 15:36:57 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@ World::~World()
 
 void World::render()
 {
+	Matrix viewMat = camera.getMatrix();
 	for (Object* object : objects)
 	{
-		object->draw(camera.getMatrix());
+		object->draw(&viewMat);
 	}
 }
 

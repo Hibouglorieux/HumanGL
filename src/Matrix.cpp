@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 13:26:12 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/13 08:21:47 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ Matrix Matrix::createRotationMatrix( RotationDirection dir, float angle )
 
 std::string Matrix::toString( std::vector<std::vector<float>> dataParam ) const
 {
-	std::cout << "WTF" << std::endl;
 	std::stringstream ss;
 	ss.precision(2); // print only 2 first decimals
 	ss << std::fixed; // put precision for 0.00 too

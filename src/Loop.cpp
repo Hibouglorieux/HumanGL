@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 15:40:25 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 14:10:55 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/13 07:50:49 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void Loop::loop()
 	glfwSetTime(0);
 	glfwGetCursorPos(Window::getWindow(), &mouseX, &mouseY);
 	glfwSetKeyCallback(Window::getWindow(), Loop::keyCallback);
+	glfwSetScrollCallback(Window::getWindow(), Loop::scrollCallBack);
 	while (!glfwWindowShouldClose(Window::getWindow()))
 	{
 		double currentTimer = glfwGetTime();
@@ -100,6 +101,7 @@ void Loop::keyCallback(GLFWwindow* window, int key, int scancode, int action, in
 {
 	(void)scancode;
 	(void)mods;// might use for speed of camera
+
 	if (window != Window::getWindow())
 		return;
 	if (key == GLFW_KEY_RIGHT && action == GLFW_PRESS)
@@ -112,4 +114,18 @@ void Loop::keyCallback(GLFWwindow* window, int key, int scancode, int action, in
 		world->addHuman();
 	if (key == GLFW_KEY_BACKSPACE && action == GLFW_PRESS)
 		world->clearObject("tmpHuman");
+	if (key == GLFW_KEY_F && action == GLFW_PRESS)
+		world->getCamera().freeMovement();
+	if (key == GLFW_KEY_R && action == GLFW_PRESS)
+		world->getCamera().reset();
+}
+
+void Loop::scrollCallBack(GLFWwindow* window, double xoffset, double yoffset)
+{
+	(void)xoffset;
+
+	if (window != Window::getWindow())
+		return;
+	if (yoffset != 0)
+		world->getCamera().scroll(yoffset);
 }

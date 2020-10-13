@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:01 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 11:53:03 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 15:36:13 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,16 +124,16 @@ void RectangularCuboid::setColor(std::array<float, 3> newColor)
 	color = newColor;
 }
 
-void RectangularCuboid::draw(Matrix viewMat)
+void RectangularCuboid::draw(Matrix* viewMat)
 {
 	if (shouldUpdateMats)
 		updateMatrixes();
 	//Matrix precalcMat = projMat * viewMat * modelMat;
-	Matrix precalcMat = projMat * viewMat;
+	Matrix precalcMat = projMat * *viewMat;
 	precalcMat *= modelMat;
 	shader->use();
     glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "proj"), 1, GL_TRUE, projMat.exportForGL());
-    glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "view"), 1, GL_TRUE, viewMat.exportForGL());
+    glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "view"), 1, GL_TRUE, viewMat->exportForGL());
     glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "model"), 1, GL_TRUE, modelMat.exportForGL());
     glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "precalcMat"), 1, GL_TRUE, precalcMat.exportForGL());
     glUniform3fv(glGetUniformLocation(shader->getID(), "myColor"), 1, &color.front());
@@ -248,7 +248,7 @@ void RectangularCuboid::updateMatrixes()
 	}
 	rotMat = Matrix();
 	if (rot.x + initialRot.x != 0)
-		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::X, rot.x + initialRot.x );
+		rotMat = Matrix::createRotationMatrix(Matrix::RotationDirection::X, rot.x + initialRot.x );
 	if (rot.y + initialRot.y != 0)
 		rotMat *= Matrix::createRotationMatrix(Matrix::RotationDirection::Y, rot.y + initialRot.y );
 	if (rot.z + initialRot.z != 0)

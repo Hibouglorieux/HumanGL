@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 19:05:07 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 14:09:05 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/12 15:34:55 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void Object::setProjMat(Matrix newProjMat)
 	projMat = newProjMat;	
 }
 
-void Object::drawChildren(Matrix viewMat)
+void Object::drawChildren(Matrix* viewMat)
 {
 	for (auto child : this->getChildren())
 	{
