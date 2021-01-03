@@ -1,14 +1,17 @@
 #!/usr/bin/env python3
-import argparse, sys
+from sys import argv
 
 # This script converts .bvh file(s) into a single cpp header for HumanGL.
 # I got animations from Mixamo.com and used Blender to convert to bvh.
 
-files = sys.argv[1:]
-outfile = open('motion.hpp', 'w')
-print('vector<vector<vector<float>>> animations{', file=outfile)
+files = argv[1:]
+if len(files) == 0:
+	print('usage: ./convert.py anim1.bvh anim2.bvh ... > output.hpp')
+	exit(0)
+
+print('vector<vector<vector<float>>> animations{')
 for f in files:
-    print('{', file=outfile)
+    print('{')
     lines = open(f, 'r').readlines()
     i_line = 0
     while not 'MOTION' in lines[i_line]:
@@ -28,6 +31,6 @@ for f in files:
         data += nodes[58][3:] # Left lower leg
         data += nodes[62][3:] # Right upper leg
         data += nodes[63][3:] # Right lower leg
-        print('{', ', '.join(data), '},', file=outfile)
-    print('},', file=outfile)
-print('};', file=outfile)
+        print('{', ', '.join(data), '},')
+    print('},')
+print('};')
