@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:07 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 15:35:56 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/23 11:58:04 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 # define RECTANGULARCUBOID_CLASS_H
 #include "Object.hpp"
 #include <array>
-#include "Shader.hpp"
-#include "Matrix.hpp"
 
 #define TRANS_MAT 0
 #define ROT_MAT 1
@@ -31,6 +29,7 @@ public:
     void setMat(Matrix newMat, int type);
 	void setColor(std::array<float, 3> Color);
 	virtual void draw(Matrix* viewMat) override;
+	virtual void draw(Matrix* viewMat, Shader* specialEffect, std::vector<std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>> shaderData) override;
 	Matrix getModelMat();
 	Matrix getParentMatrix();
 	virtual void onNewParent() override; //parent should already be set when this method is called
@@ -54,6 +53,7 @@ public:
 	Vec3 getRot() const {return rot;}
 	Vec3 getScale() const {return scale;}
 private:
+	Matrix getMatrixForOutline();
 	static bool initialized;
 	static int instanceCount;
 	void updateMatrixes();

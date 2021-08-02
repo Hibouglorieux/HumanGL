@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 21:11:34 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 15:35:14 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/22 12:46:51 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ public:
 	static const int nbOfLimbs;
 	Human(void);
 	virtual void draw(Matrix* viewMat) override;
+	virtual void draw(Matrix* viewMat, Shader* specialEffect, std::vector<std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>> shaderData) override;
 	void setPos(float x, float y, float z);
 	void setPos(Vec3 pos) {setPos(pos.x, pos.y, pos.z);};
 	Vec3 getPos() const;
@@ -35,6 +36,7 @@ public:
 	void setScale(float x);
 	void playAnimation(bvhData newAnim);
 	void cancelAnimation();
+	void update();
 	RectangularCuboid* getBodyPart(Body bodyPart);
 	~Human(void);
 private:

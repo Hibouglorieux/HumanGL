@@ -6,11 +6,12 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 18:11:30 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 15:36:57 by nathan           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:53:57 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "World.hpp"
+#include <array>
 
 int World::i = 1;
 
@@ -22,15 +23,48 @@ World::World()
 
 World::~World()
 {
+	for (auto it : objects)
+	{
+		delete it;
+	}
 	objects.clear();
 }
 
 void World::render()
 {
+		glEnable(GL_STENCIL_TEST);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+		glStencilFunc(GL_ALWAYS, 1, 0xFF);
+		glStencilMask(0xFF);
+
+		glEnable(GL_DEPTH_TEST);
+
+
 	Matrix viewMat = camera.getMatrix();
 	for (Object* object : objects)
 	{
 		object->draw(&viewMat);
+	}
+
+		glStencilFunc(GL_NOTEQUAL, 1, 0xFF);
+		glStencilMask(0xFF);
+		glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
+		glDisable(GL_DEPTH_TEST);
+
+	std::array<float, 3> color = {0.0f, 0.0f, 0.0f};
+	Shader specialEffect("new.vert", "outline.frag");
+	std::vector<std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>> shaderData;
+	std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*> functionCall = std::make_tuple(glUniform3fv, "myColor", &color.front());
+	shaderData.push_back(functionCall);
+	for (Object* object : objects)
+	{
+		Human* human = dynamic_cast<Human*>(object);
+		if (human)
+		{
+			human->setScale(1.2f);
+			human->draw(&viewMat, &specialEffect, shaderData);
+			human->setScale(1 / 1.2f);
+		}
 	}
 }
 
@@ -99,19 +133,6 @@ void World::playPrevAnim()
 void World::onLeaveAnim()//TODO
 {
 	return;
-	if (currentAnimation == BREAKDANCE)
-	{
-		for (Object* obj : objects)
-		{
-			Human* human = dynamic_cast<Human*>(obj);
-			if (human)
-			{
-				Vec3 position = human->getPos();
-				position.y += 2.7;
-				human->setPos(position);
-			}
-		}
-	}
 }
 
 void World::onEnterAnim()//TODO
@@ -123,19 +144,6 @@ void World::onEnterAnim()//TODO
 		human->setPos(4, 4.9f, 0);
 		human->setID("tmpHuman");
 		addObject(human);
-	}
-	if (currentAnimation == BREAKDANCE)
-	{
-		for (Object* obj : objects)
-		{
-			Human* human = dynamic_cast<Human*>(obj);
-			if (human)
-			{
-				Vec3 position = human->getPos();
-				position.y -= 2.7;
-				human->setPos(position);
-			}
-		}
 	}
 }
 

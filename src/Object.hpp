@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 19:05:09 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/13 09:16:00 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/22 12:27:07 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 
 #include "Utilities.h"
 #include "Matrix.hpp"
+#include "Shader.hpp"
+#include <tuple>
+#include <functional>
 #include <vector>
 #include <algorithm>
 
@@ -23,7 +26,9 @@ class Object {
 public:
 	Object(void);
 	virtual void draw(Matrix* viewMat) = 0;
+	virtual void draw(Matrix* viewMat, Shader* specialEffect, std::vector<std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>> shaderData) = 0;
 	virtual void drawChildren(Matrix* viewMat);
+	virtual void drawChildren(Matrix* viewMat, Shader* specialEffect, std::vector<std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>> shaderData);
 	virtual ~Object(void);
 	virtual Vec3 getPos() const = 0;
 	static void setProjMat(Matrix projMat);

@@ -6,22 +6,12 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:40 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/13 08:21:47 by nathan           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:20:40 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Matrix.hpp"
 #include "Utilities.h"
-
-/*
-constexpr std::vector<std::vector<float>> Matrix::Projection = {
-	float tanHalfFov = tan(to_rad(fov) / 2); = {
-		{1 / (aspect * tanHalfFov), 0 , 0, 0},
-		{0, 1 / tanHalfFov, 0, 0},
-		{0, 0 , -(far + near) / (far - near), (-2 * far * near) / (far - near)},
-		{0, 0 , -1, 1}}
-};
-*/
 
 Matrix::Matrix( void )
 {
@@ -226,10 +216,15 @@ Matrix Matrix::operator*=( const Matrix& rhs )
 	return *this;
 }	
 
-/*
-Matix Matrix::scaleTranslationMatrix( Matrix transMat, const Matrix& scaleMat)
+Matrix Matrix::transpose() const
 {
-	transMat.data[3][0] * = scaleMat.data[0][0];
-	return (transMat);
+	Matrix transposed;
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			transposed.data[j][i] = data[i][j];
+		}
+	}
+	return transposed;
 }
-*/

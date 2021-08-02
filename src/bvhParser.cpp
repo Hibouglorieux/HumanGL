@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/26 12:18:16 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 03:22:00 by nathan           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:50:37 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ bvhData bvhParser::loadFile(std::string fileName)
 	return data;
 }
 
-void bvhData::test()
+/*
+void bvhData::debug()
 {
 	std::ofstream output("test.hpp");
 	output << "vector<vector<vector<float>>> animations{" << std::endl << "{" << std::endl;
@@ -118,3 +119,4 @@ void bvhData::test()
 	}
 	output << "}," << std::endl << "};";
 }
+*/

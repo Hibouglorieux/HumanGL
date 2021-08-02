@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/24 15:40:25 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/13 07:50:49 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/07 15:04:16 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,19 @@ void Loop::loop()
 
 		//update(frameTime);
 
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+
+//		glEnable(GL_STENCIL_TEST);
+//		glStencilFunc(GL_EQUAL, 0, 0xFF);
+//		glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+//
+//		glEnable(GL_DEPTH_TEST);
+
 		world->render();
+		glFinish();
+
+//		glDisable(GL_DEPTH_TEST);
+//		glDisable(GL_STENCIL_TEST);
 
 		glfwSwapBuffers(Window::getWindow());
 

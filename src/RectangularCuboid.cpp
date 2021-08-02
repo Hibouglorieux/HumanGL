@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 17:52:01 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 15:36:13 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:28:16 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,8 @@ void RectangularCuboid::draw(Matrix* viewMat)
 	//Matrix precalcMat = projMat * viewMat * modelMat;
 	Matrix precalcMat = projMat * *viewMat;
 	precalcMat *= modelMat;
+	if (ID == "floor")
+		glStencilMask(0x00);
 	shader->use();
     glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "proj"), 1, GL_TRUE, projMat.exportForGL());
     glUniformMatrix4fv(glGetUniformLocation(shader->getID(), "view"), 1, GL_TRUE, viewMat->exportForGL());
@@ -139,6 +141,30 @@ void RectangularCuboid::draw(Matrix* viewMat)
     glUniform3fv(glGetUniformLocation(shader->getID(), "myColor"), 1, &color.front());
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
+	if (ID == "floor")
+		glStencilMask(0xFF);
+}
+
+void RectangularCuboid::draw(Matrix* viewMat, Shader* specialEffect, std::vector<std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>> shaderData)
+{
+	Matrix precalcMat = projMat * *viewMat;
+	precalcMat *= getMatrixForOutline();
+	specialEffect->use();
+    glUniformMatrix4fv(glGetUniformLocation(specialEffect->getID(), "precalcMat"), 1, GL_TRUE, precalcMat.exportForGL());
+	for (std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>& tuple : shaderData)
+	{
+		std::function<void(GLint, GLsizei, const GLfloat*)> assignUniform = std::get<0>(tuple);
+		assignUniform(glGetUniformLocation(specialEffect->getID(), std::get<1>(tuple).c_str()),
+					1,
+					std::get<2>(tuple));
+	}
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 36);
+}
+
+Matrix RectangularCuboid::getMatrixForOutline()
+{
+	return myMat * Matrix::createScaleMatrix(scale);
 }
 
 Matrix RectangularCuboid::getModelMat()

@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 11:07:43 by nathan            #+#    #+#             */
-/*   Updated: 2020/09/03 22:53:25 by nathan           ###   ########.fr       */
+/*   Updated: 2020/11/09 15:24:16 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ public:
 	Vec3 vectorMult(const Vec3 vec) const;
 	~Matrix( void );
 	GLfloat* exportForGL(  );
+	Matrix transpose() const;
 	Matrix operator*( const Matrix& rhs ) const;
 	Vec3 operator*( const Vec3& rhs) const;
 	Matrix operator*=( const Matrix& rhs );

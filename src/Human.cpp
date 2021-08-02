@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 21:11:31 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 15:35:18 by nathan           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:21:33 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ const int Human::nbOfLimbs = 10;
 
 Human::Human()
 {
-	std::cout << "human is created" << std::endl;
 	body.resize(rightLeg + 1);
 
 	body[chest] = new RectangularCuboid(0.7, 2, 0.4);
@@ -89,6 +88,7 @@ Human::~Human()
 
 void Human::setScale(float x)
 {
+	Vec3 scalexyz = {x, x, x};
 	body[head]->setScale(body[head]->getScale() * x);
 	body[chest]->setScale(body[chest]->getScale() * x);
 	body[rightArm]->setScale(body[rightArm]->getScale() * x);
@@ -103,6 +103,19 @@ void Human::setScale(float x)
 
 void Human::draw(Matrix* viewMat)
 {
+	update();
+	body[chest]->draw(viewMat);
+	body[chest]->drawChildren(viewMat);
+}
+
+void Human::draw(Matrix* viewMat, Shader* specialEffect, std::vector<std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>> shaderData)
+{
+	body[chest]->draw(viewMat, specialEffect, shaderData);
+	body[chest]->drawChildren(viewMat, specialEffect, shaderData);
+}
+
+void Human::update()
+{
 	if (animation.numberOfFrames > 0)
 	{
 		for (int limb = 1; limb < nbOfLimbs; limb++)
@@ -115,8 +128,6 @@ void Human::draw(Matrix* viewMat)
 		if (frameCount == animation.numberOfFrames)
 			frameCount = 0;
 	}
-	body[chest]->draw(viewMat);
-	body[chest]->drawChildren(viewMat);
 }
 
 void Human::setPos(float x, float y, float z)
@@ -143,7 +154,6 @@ void Human::playAnimation(bvhData newAnim)
 
 void Human::cancelAnimation()
 {
-	//resetHuman();
 	animation.numberOfFrames = 0;
 	animation.data.clear();
 	frameCount = 0;

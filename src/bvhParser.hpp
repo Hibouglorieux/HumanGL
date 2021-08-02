@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/18 04:39:01 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/01 03:22:14 by nathan           ###   ########.fr       */
+/*   Updated: 2021/08/02 15:52:21 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@
 struct bvhData {
 	bvhData(void) {numberOfFrames = 0;}
 	bvhData(int i) {numberOfFrames = i;}
-	void test();
+	~bvhData(void) {for (auto it : data)it.clear();data.clear();translationData.clear();}
+	//void debug();
 	int numberOfFrames;
 	std::vector<std::vector<Vec3>> data;
 	std::vector<Vec3> translationData;

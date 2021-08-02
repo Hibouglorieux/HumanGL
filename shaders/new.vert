@@ -5,12 +5,9 @@ uniform mat4 view;
 uniform mat4 model;
 uniform mat4 precalcMat;
 out vec3 FragPos;
-out vec3 normalDirection;
 
 void main()
 {
     gl_Position = precalcMat * vec4(pos, 1.0);
     FragPos = vec3(model * vec4(pos, 1.0));
-
-	normalDirection = normalize(vec3(vec4(pos, 0.0) * inverse(precalcMat)));
 }

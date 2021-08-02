@@ -27,16 +27,15 @@ ifneq (, $(findstring MINGW, $(UNAME)))
 	NAME = humangl.exe
 endif
 
-# 14 is fine for now, might need to upgrade ?
-CXXFLAGS = -std=gnu++14 -Wall -Wextra
+CXXFLAGS = -std=gnu++11 -Wall -Wextra -g3
 CXXFLAGS += -O3 #GNU debugger
-CXXFLAGS += -fno-omit-frame-pointer #linux profiler
-CXXFLAGS += -Wno-deprecated-declarations # hide usleep deprecated warning
+#CXXFLAGS += -fno-omit-frame-pointer #linux profiler
+#CXXFLAGS += -Wno-deprecated-declarations # hide usleep deprecated warning
 
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CXX) $^ -o $@ $(LIBS)
+	$(CXX) $^ -o $@ $(LIBS) 
 
 obj/%.o:src/%.cpp includes/*.h $(wildacrd $(src/%.hpp))
 	@mkdir -p obj

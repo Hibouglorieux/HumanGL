@@ -6,7 +6,7 @@
 /*   By: nathan <unkown@noaddress.com>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/08 19:05:07 by nathan            #+#    #+#             */
-/*   Updated: 2020/10/12 15:34:55 by nathan           ###   ########.fr       */
+/*   Updated: 2020/10/22 12:27:10 by nathan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,15 @@ void Object::drawChildren(Matrix* viewMat)
 	{
 		child->draw(viewMat);
 		child->drawChildren(viewMat);
+	}
+}
+
+void Object::drawChildren(Matrix* viewMat, Shader* specialEffect, std::vector<std::tuple<std::function<void(GLint, GLsizei, const GLfloat*)>, std::string, const GLfloat*>> shaderData)
+{
+	for (auto child : this->getChildren())
+	{
+		child->draw(viewMat, specialEffect, shaderData);
+		child->drawChildren(viewMat, specialEffect, shaderData);
 	}
 }
 
